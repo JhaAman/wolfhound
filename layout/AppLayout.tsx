@@ -1,10 +1,17 @@
 /* The base layout for the core webapp */
-import React, { ReactElement } from "react";
+
+import React, { ReactElement, ReactNode } from "react";
 
 // TODO: add mixpanel, dock component, etc.
 
-interface Props {}
+type IAppProps = {
+  children: ReactNode;
+};
 
-export default function App({}: Props): ReactElement {
-  return <div></div>;
+export default function AppLayout({ children }: IAppProps): ReactElement {
+  return (
+    <div>
+      <main>{children}</main>
+    </div>
+  );
 }
