@@ -5,7 +5,7 @@ import AppLayout from "../../layout/AppLayout";
 interface Props {}
 
 const MainApp: Page = () => {
-  return <div>Hello World</div>;
+  return <div className="text-black dark:text-white">Hello World</div>;
 };
 
 // Attach the landing layout (and other nested layouts) to the page
