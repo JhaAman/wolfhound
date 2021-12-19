@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import { Fragment } from "react";
 import { Page } from "../global";
 
+// TODO: add supabase auth and theme provider
+
 type Props = AppProps & {
   Component: Page;
 };

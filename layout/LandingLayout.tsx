@@ -4,6 +4,8 @@ import React, { ReactElement, ReactNode } from "react";
 import Footer from "../components/landing/Footer";
 import Header from "../components/landing/Header";
 
+// TODO: add fathom client, etc.
+
 type ILandingProps = {
   meta: ReactNode;
   children: ReactNode;
