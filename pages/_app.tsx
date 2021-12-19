@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Fragment } from "react";
 import { Page } from "../global";
+import { ThemeProvider } from "next-themes";
 
 // TODO: add supabase auth and theme provider
 
@@ -19,7 +20,11 @@ const MyApp = ({ Component, pageProps }: Props) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const Layout = Component.layout ?? Fragment;
 
-  return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
+  return (
+    <ThemeProvider attribute="class">
+      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+    </ThemeProvider>
+  );
 
   // or swap the layout rendering priority
   // return getLayout(<Layout><Component {...pageProps} /></Layout>)
