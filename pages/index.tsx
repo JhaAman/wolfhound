@@ -17,7 +17,11 @@ const Home: Page = () => {
 Home.getLayout = (page) => {
   return (
     // Attach the Landing layout with a meta component
-    <LandingLayout meta={<Meta title="Title" description="Description" />}>
+    <LandingLayout
+      meta={<Meta title="Title" description="Description" />}
+      headerActive={true}
+      footerActive={true}
+    >
       {page}
     </LandingLayout>
   );
