@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 
 import { Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
-import { Meta } from "../components/landing/Meta";
+import { Meta } from "./_components/landing/Meta";
 
 const Home: Page = () => {
   const [mounted, setMounted] = useState(false);
