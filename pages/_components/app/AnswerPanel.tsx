@@ -14,7 +14,7 @@ export default function AnswerPanel({ answer }: Props): ReactElement {
         <div className="flex flex-wrap ">
           <div className="w-full mx-4 mb-4 ">
             <p className="text-gray-200">The answer to your question is:</p>
-            <p className="text-gray-200">{answer}</p>
+            {answer && <p className="text-gray-200">{answer}</p>}
           </div>
         </div>
       </div>

@@ -1,21 +1,46 @@
-import React, { ReactElement } from "react";
-import useSwr from "swr";
-
-// Boilerplate fetcher function for swr
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
+import React, { ReactElement, useEffect } from "react";
+import useSWR from "swr";
 import { Page } from "../../global";
 import AppLayout from "../../layout/AppLayout";
 import AnswerPanel from "../_components/app/AnswerPanel";
 import QuestionPanel from "../_components/app/QuestionPanel";
 
+// Boilerplate fetcher function for swr
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 interface Props {}
+
+function useUser(question: string) {
+  const { data, error } = useSWR(`/api/howto`, fetcher);
+
+  return {
+    user: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
 
 const MainApp: Page = () => {
   // UseState to store the question submission and answer repsonse
   const [question, setQuestion] = React.useState("");
   const [answer, setAnswer] = React.useState("Waiting for a question...");
-  const { data, error } = useSwr("/api/howto", fetcher);
+
+  const { user, isLoading, isError } = useUser(question);
+
+  useEffect(() => {
+    if (user) {
+      setAnswer(user);
+    }
+  }, [user]);
+
+  /* on getting submit from Quesiton Panel, fetch from API */
+  const submitQuestion = (question: string) => {
+    console.log("Submitting question");
+    console.log("Question is " + question);
+    setQuestion(question);
+
+    // use useUser to fetch the answer
+  };
 
   return (
     <div className="text-black dark:text-white">
@@ -25,7 +50,7 @@ const MainApp: Page = () => {
           <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
             <QuestionPanel
               question={question}
-              setQuestion={(question: string) => setQuestion(question)}
+              submitQuestion={submitQuestion}
             />
           </div>
 

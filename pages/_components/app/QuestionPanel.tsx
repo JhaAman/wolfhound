@@ -1,37 +1,37 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 
 interface Props {
   question: string;
-  setQuestion: (question: string) => void;
+  submitQuestion: (question: string) => void;
 }
 
-export default function QuestionPanel({ question }: Props): ReactElement {
+export default function QuestionPanel({
+  question,
+  submitQuestion,
+}: Props): ReactElement {
   // UseState to store the question
   const [type, setType] = React.useState("How to");
   const [oneLiner, setOneLiner] = React.useState("");
   const [details, setDetails] = React.useState("");
 
+  /* Handlers */
+
   // set type based on `select` value
-  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setType(event.target.value);
-  };
 
   // set oneLiner based on `input` value
-  const handleOneLinerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOneLinerChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setOneLiner(event.target.value);
-  };
 
   // set details based on `textarea` value
-  const handleDetailsChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleDetailsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setDetails(event.target.value);
-  };
 
   // Handle submit button
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(type, oneLiner, details);
+    submitQuestion(type + " " + oneLiner + " " + details);
   };
 
   return (
