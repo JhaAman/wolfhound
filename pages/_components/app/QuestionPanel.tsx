@@ -98,10 +98,9 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
 }
 
 function createQuestion(oneLiner: string, details: string): string {
-  return `
-  Question Subject:
-  ${oneLiner}
+  return `Question Subject:
+${oneLiner}
 
-  Question Details:
-  ${details}`;
+Question Details:
+${details}`;
 }

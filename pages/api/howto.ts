@@ -13,7 +13,7 @@ export default function howToHandler(
   switch (method) {
     case "POST":
       // Update or create data in your database
-      res.status(200).json({ answer: `${body.question}` });
+      res.status(200).json({ answer: body.question });
       break;
     default:
       res.setHeader("Allow", ["POST"]);
