@@ -8,11 +8,13 @@ import Meta from "./_components/landing/Meta";
 const Home: Page = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
 
   return (
     <div className="px-6 py-8 bg-white rounded-lg shadow-xl dark:bg-gray-900 ring-1 ring-gray-900/5">
+      {/* Dark Mode */}
       <div>
         <span className="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
           {/* A button to switch dark mode */}
@@ -52,6 +54,8 @@ const Home: Page = () => {
           </button>
         </span>
       </div>
+
+      {/* The Auth testing */}
       <h3 className="mt-5 text-base font-medium tracking-tight text-gray-900 dark:text-white">
         Writes Upside-Down
       </h3>
