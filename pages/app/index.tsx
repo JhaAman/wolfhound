@@ -10,7 +10,7 @@ const MainApp: Page = () => {
   // UseState to store the question submission and answer repsonse
   const [answer, setAnswer] = React.useState("Waiting for a question...");
 
-  /* on getting submit from Quesiton Panel, fetch from API */
+  /* on getting submit from Question Panel, fetch from API */
   const submitQuestion = (question: string) => {
     // use fetch to get the answer
     fetch("http://localhost:3000/api/howto", {
