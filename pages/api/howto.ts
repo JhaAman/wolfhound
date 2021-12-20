@@ -28,6 +28,7 @@ Answer text:`;
     case "POST":
       const aiResponse = await getAIResponse(prompt, hash);
       const answer = aiResponse.data.choices[0].text.trim();
+      console.log("got an answer");
       console.log(answer);
       // Update or create data in your database
       res.status(200).json({ answer: answer });

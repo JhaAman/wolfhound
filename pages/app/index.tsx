@@ -4,6 +4,8 @@ import AppLayout from "../../layout/AppLayout";
 import AnswerPanel from "../_components/app/AnswerPanel";
 import QuestionPanel from "../_components/app/QuestionPanel";
 
+const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 interface Props {}
 
 const MainApp: Page = () => {
@@ -13,8 +15,9 @@ const MainApp: Page = () => {
   /* on getting submit from Question Panel, fetch from API */
   const submitQuestion = (type: string, question: string) => {
     const email = "gunujha@gmail.com";
+
     // use fetch to get the answer
-    fetch("http://localhost:3000/api/howto", {
+    fetch(`${api_base_url}` + "howto", {
       method: "POST",
       body: JSON.stringify({ question, email }),
       headers: {
