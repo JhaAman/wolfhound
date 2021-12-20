@@ -37,6 +37,7 @@ export default function QuestionPanel({}: Props): ReactElement {
             <form
               onSubmit={(event) => {
                 event.preventDefault();
+                console.log(type, oneLiner, details);
               }}
             >
               {/* Type */}
