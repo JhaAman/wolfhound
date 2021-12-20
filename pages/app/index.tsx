@@ -12,10 +12,11 @@ const MainApp: Page = () => {
 
   /* on getting submit from Question Panel, fetch from API */
   const submitQuestion = (type: string, question: string) => {
+    const email = "gunujha@gmail.com";
     // use fetch to get the answer
     fetch("http://localhost:3000/api/howto", {
       method: "POST",
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({ question, email }),
       headers: {
         "Content-Type": "application/json",
       },
