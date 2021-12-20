@@ -11,16 +11,12 @@ export default function howToHandler(
   const { body, method } = req;
 
   switch (method) {
-    case "GET":
-      // Get data from your database
-      res.status(200).json({ answer: `${body.question}` });
-      break;
     case "POST":
       // Update or create data in your database
       res.status(200).json({ answer: `${body.question}` });
       break;
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader("Allow", ["POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

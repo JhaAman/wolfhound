@@ -11,7 +11,8 @@ const MainApp: Page = () => {
   const [answer, setAnswer] = React.useState("Waiting for a question...");
 
   /* on getting submit from Question Panel, fetch from API */
-  const submitQuestion = (question: string) => {
+  const submitQuestion = (type: string, question: string) => {
+    console.log(question);
     // use fetch to get the answer
     fetch("http://localhost:3000/api/howto", {
       method: "POST",

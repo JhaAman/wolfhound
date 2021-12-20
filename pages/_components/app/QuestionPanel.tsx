@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
-  submitQuestion: (question: string) => void;
+  submitQuestion: (type: string, question: string) => void;
 }
 
 export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
@@ -27,7 +27,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
   // Handle submit button
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitQuestion(type + " " + oneLiner + " " + details);
+    submitQuestion(type, createQuestion(oneLiner, details));
   };
 
   return (
@@ -95,4 +95,13 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
       </div>
     </>
   );
+}
+
+function createQuestion(oneLiner: string, details: string): string {
+  return `
+  Question Subject:
+  ${oneLiner}
+
+  Question Details:
+  ${details}`;
 }
