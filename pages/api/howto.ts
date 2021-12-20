@@ -1,29 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-  id: string | string[];
-  name: string;
+  answer: string;
 };
-
-const users = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
 export default function howToHandler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {
-    query: { id, name },
-    method,
-  } = req;
+  const { body, method } = req;
 
   switch (method) {
     case "GET":
       // Get data from your database
-      res.status(200).json({ id, name: `User ${id}` });
+      res.status(200).json({ answer: `answer is: ${body.question}` });
       break;
     case "POST":
       // Update or create data in your database
-      res.status(200).json({ id, name: `User ${id}` });
+      res.status(200).json({ answer: `answer is: ${body.question}` });
       break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);

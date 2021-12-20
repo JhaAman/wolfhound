@@ -1,14 +1,10 @@
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
-  question: string;
   submitQuestion: (question: string) => void;
 }
 
-export default function QuestionPanel({
-  question,
-  submitQuestion,
-}: Props): ReactElement {
+export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
   // UseState to store the question
   const [type, setType] = React.useState("How to");
   const [oneLiner, setOneLiner] = React.useState("");

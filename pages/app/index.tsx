@@ -1,45 +1,29 @@
 import React, { ReactElement, useEffect } from "react";
-import useSWR from "swr";
 import { Page } from "../../global";
 import AppLayout from "../../layout/AppLayout";
 import AnswerPanel from "../_components/app/AnswerPanel";
 import QuestionPanel from "../_components/app/QuestionPanel";
 
-// Boilerplate fetcher function for swr
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 interface Props {}
-
-function useUser(question: string) {
-  const { data, error } = useSWR(`/api/howto`, fetcher);
-
-  return {
-    user: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
-}
 
 const MainApp: Page = () => {
   // UseState to store the question submission and answer repsonse
-  const [question, setQuestion] = React.useState("");
   const [answer, setAnswer] = React.useState("Waiting for a question...");
-
-  const { user, isLoading, isError } = useUser(question);
-
-  useEffect(() => {
-    if (user) {
-      setAnswer(user);
-    }
-  }, [user]);
 
   /* on getting submit from Quesiton Panel, fetch from API */
   const submitQuestion = (question: string) => {
-    console.log("Submitting question");
-    console.log("Question is " + question);
-    setQuestion(question);
-
-    // use useUser to fetch the answer
+    // use fetch to get the answer
+    fetch("http://localhost:3000/api/howto", {
+      method: "POST",
+      body: JSON.stringify({ question }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAnswer(data.answer);
+      });
   };
 
   return (
@@ -48,10 +32,7 @@ const MainApp: Page = () => {
         <div className="grid grid-cols-1 md:grid-cols-6">
           {/* Question Panel */}
           <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
-            <QuestionPanel
-              question={question}
-              submitQuestion={submitQuestion}
-            />
+            <QuestionPanel submitQuestion={submitQuestion} />
           </div>
 
           {/* Answer Panel */}
