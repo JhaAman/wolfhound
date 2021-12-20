@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
-import useSwr from "swr";
 
-interface Props {}
+interface Props {
+  question: string;
+  setQuestion: (question: string) => void;
+}
 
-export default function QuestionPanel({}: Props): ReactElement {
+export default function QuestionPanel({ question }: Props): ReactElement {
   // UseState to store the question
   const [type, setType] = React.useState("How to");
   const [oneLiner, setOneLiner] = React.useState("");

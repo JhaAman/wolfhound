@@ -5,6 +5,8 @@ type Data = {
   name: string;
 };
 
+const users = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
 export default function howToHandler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -28,5 +30,3 @@ export default function howToHandler(
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
-
-const users = [{ id: 1 }, { id: 2 }, { id: 3 }];

@@ -1,4 +1,9 @@
 import React, { ReactElement } from "react";
+import useSwr from "swr";
+
+// Boilerplate fetcher function for swr
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 import { Page } from "../../global";
 import AppLayout from "../../layout/AppLayout";
 import AnswerPanel from "../_components/app/AnswerPanel";
@@ -7,8 +12,10 @@ import QuestionPanel from "../_components/app/QuestionPanel";
 interface Props {}
 
 const MainApp: Page = () => {
-  // UseState to store the question
+  // UseState to store the question submission and answer repsonse
+  const [question, setQuestion] = React.useState("");
   const [answer, setAnswer] = React.useState("Waiting for a question...");
+  const { data, error } = useSwr("/api/howto", fetcher);
 
   return (
     <div className="text-black dark:text-white">
@@ -16,12 +23,15 @@ const MainApp: Page = () => {
         <div className="grid grid-cols-1 md:grid-cols-6">
           {/* Question Panel */}
           <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
-            <QuestionPanel />
+            <QuestionPanel
+              question={question}
+              setQuestion={(question: string) => setQuestion(question)}
+            />
           </div>
 
           {/* Answer Panel */}
           <div className="px-4 md:col-start-4 md:col-end-7 mb-14">
-            <AnswerPanel answer="answer" />
+            <AnswerPanel answer={answer} />
           </div>
         </div>
       </div>
