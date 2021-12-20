@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import useSwr from "swr";
 
 interface Props {}
 
@@ -25,6 +26,12 @@ export default function QuestionPanel({}: Props): ReactElement {
     setDetails(event.target.value);
   };
 
+  // Handle submit button
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(type, oneLiner, details);
+  };
+
   return (
     <>
       <div className="p-4 bg-gray-700 rounded-lg shadow-lg ">
@@ -33,13 +40,8 @@ export default function QuestionPanel({}: Props): ReactElement {
         {/* Question Input */}
         <div className="flex flex-wrap ">
           <div className="w-full mx-4 mb-4 ">
-            {/* Create react form with type, one liner and details, all required */}
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                console.log(type, oneLiner, details);
-              }}
-            >
+            {/* A form that asks for the question type, one liner and details */}
+            <form onSubmit={(event) => handleSubmit(event)}>
               {/* Type */}
               <label className="block mb-2 font-bold tracking-wide text-gray-200 ">
                 Type of question

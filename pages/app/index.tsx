@@ -7,6 +7,9 @@ import QuestionPanel from "../_components/app/QuestionPanel";
 interface Props {}
 
 const MainApp: Page = () => {
+  // UseState to store the question
+  const [answer, setAnswer] = React.useState("Waiting for a question...");
+
   return (
     <div className="text-black dark:text-white">
       <div className="container mx-auto mt-24 md:max-w-screen-xl">
@@ -18,7 +21,7 @@ const MainApp: Page = () => {
 
           {/* Answer Panel */}
           <div className="px-4 md:col-start-4 md:col-end-7 mb-14">
-            <AnswerPanel />
+            <AnswerPanel answer="answer" />
           </div>
         </div>
       </div>

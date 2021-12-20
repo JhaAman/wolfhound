@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react";
 
-interface Props {}
+interface Props {
+  answer: string;
+}
 
-export default function AnswerPanel({}: Props): ReactElement {
+export default function AnswerPanel({ answer }: Props): ReactElement {
   return (
     <>
       <div className="p-4 bg-gray-700 rounded-lg shadow-lg ">
@@ -12,11 +14,7 @@ export default function AnswerPanel({}: Props): ReactElement {
         <div className="flex flex-wrap ">
           <div className="w-full mx-4 mb-4 ">
             <p className="text-gray-200">The answer to your question is:</p>
-            <p className="text-gray-200">
-              {
-                "I don't know how to do this, but I'm sure you can figure it out!"
-              }
-            </p>
+            <p className="text-gray-200">{answer}</p>
           </div>
         </div>
       </div>
