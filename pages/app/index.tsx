@@ -10,7 +10,7 @@ const MainApp: Page = () => {
   return (
     <div className="text-black dark:text-white">
       <div className="container mx-auto mt-24 md:max-w-screen-xl">
-        <div className="grid grid-cols-1 md:grid-cols-footer">
+        <div className="grid grid-cols-1 md:grid-cols-6">
           {/* Question Panel */}
           <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
             <QuestionPanel />
