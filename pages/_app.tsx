@@ -1,8 +1,11 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Fragment } from "react";
-import { Page } from "../global";
 import { ThemeProvider } from "next-themes";
+
+import { Page } from "../global";
+import "../styles/globals.css";
+
+import supabase from "../lib/supabase";
 
 // TODO: add supabase auth and theme provider
 
