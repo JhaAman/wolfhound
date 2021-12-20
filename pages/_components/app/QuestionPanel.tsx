@@ -81,6 +81,14 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
               >
                 Submit
               </button>
+
+              {/* Clear button */}
+              <button
+                className="w-1/3 p-2 mt-4 text-white bg-red-500 rounded-lg shadow-lg"
+                type="reset"
+              >
+                Clear
+              </button>
             </form>
           </div>
         </div>
