@@ -1,22 +1,26 @@
 import React, { ReactElement } from "react";
 import { Page } from "../../global";
 import AppLayout from "../../layout/AppLayout";
+import AnswerPanel from "../_components/app/AnswerPanel";
+import QuestionPanel from "../_components/app/QuestionPanel";
 
 interface Props {}
 
 const MainApp: Page = () => {
   return (
     <div className="text-black dark:text-white">
-      <div className="flex flex-row items-center justify-center">
-        {/* Question Panel */}
-        <div className="w-full h-screen max-w-xl mx-12 mt-20 mb-20 text-center bg-gray-500 max-h-72 ">
-          Question
-        </div>
-        <div className="w-full max-w-xl mx-12 mt-20 mb-20 text-center bg-gray-400 h-96">
-          Answer
-        </div>
+      <div className="container mx-auto mt-24 md:max-w-screen-xl">
+        <div className="grid grid-cols-1 md:grid-cols-6">
+          {/* Question Panel */}
+          <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
+            <QuestionPanel />
+          </div>
 
-        {/* Answer Panel */}
+          {/* Answer Panel */}
+          <div className="px-4 md:col-start-4 md:col-end-7 mb-14">
+            <AnswerPanel />
+          </div>
+        </div>
       </div>
 
       {/* Dock */}
