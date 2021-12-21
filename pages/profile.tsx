@@ -12,7 +12,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  });
 
   async function fetchProfile() {
     const user = supabase.auth.user();
