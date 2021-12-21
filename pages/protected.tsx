@@ -10,11 +10,9 @@ import React, { ReactElement } from "react";
 import LandingLayout from "../layout/LandingLayout";
 import Meta from "./_components/landing/Meta";
 
-interface Props {
-  user: User;
-}
+const Protected = (props: { user: User }) => {
+  const { user } = props;
 
-const Protected = ({ user }: Props) => {
   console.log({ user });
 
   return (
@@ -24,10 +22,9 @@ const Protected = ({ user }: Props) => {
   );
 };
 
-interface SSRProps {
-  req: any;
-}
-export async function getServerSideProps({ req }: SSRProps) {
+export async function getServerSideProps(props: { req: any }) {
+  const { req } = props;
+
   /* check to see if a user is set */
   const { user } = await supabase.auth.api.getUserByCookie(req);
 

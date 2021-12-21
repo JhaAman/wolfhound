@@ -26,6 +26,9 @@ export default function Header({}: Props): ReactElement {
           <Link href="/protected">
             <a className="m-2.5">Protected</a>
           </Link>
+          <Link href="/app">
+            <a className="m-2.5">App</a>
+          </Link>
         </nav>
       </div>
     </header>

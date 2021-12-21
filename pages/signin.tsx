@@ -1,6 +1,5 @@
 /* pages/sign-in.js */
 import { ReactElement, useState } from "react";
-import { Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
 
 import supabase from "../lib/supabase";
