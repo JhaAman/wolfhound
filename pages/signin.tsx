@@ -19,7 +19,7 @@ const SignIn = () => {
       { redirectTo: redirect_url }
     );
     if (error) {
-      console.log("supabase magic link sending error", { error });
+      console.log("Supabase magic link sending error", { error });
     } else {
       setSubmitted(true);
     }
