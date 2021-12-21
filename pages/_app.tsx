@@ -35,6 +35,8 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
         if (event === "SIGNED_IN") {
           setAuthenticatedState("authenticated");
+
+          // Mixpanel tracking
           mixpanel.identify(session?.user?.id);
           mixpanel.people.set({
             $email: session?.user?.email,
@@ -59,7 +61,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     return () => {
       authListener?.unsubscribe();
     };
-  }, []);
+  });
 
   async function handleAuthChange(
     event: AuthChangeEvent,
