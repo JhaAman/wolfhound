@@ -4,7 +4,7 @@
  */
 
 import type { AppProps } from "next/app";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, ReactElement, ReactNode } from "react";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,13 +13,22 @@ import { Page } from "../global";
 import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
+import { NextPage } from "next";
+
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
 
 type Props = AppProps & {
   Component: Page;
 };
-const MyApp = ({ Component, pageProps }: Props) => {
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  //#region Authentication
   const router = useRouter();
-
   const [authenticatedState, setAuthenticatedState] =
     useState("not-authenticated");
 
@@ -60,10 +69,10 @@ const MyApp = ({ Component, pageProps }: Props) => {
       body: JSON.stringify({ event, session }),
     });
   }
+  //#endregion
 
+  //#region Layout
   /* 
-    Manage layouts for pages
-    
     See 
     https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
     https://stackoverflow.com/questions/62115518/persistent-layout-in-next-js-with-typescript-and-hoc
@@ -71,35 +80,18 @@ const MyApp = ({ Component, pageProps }: Props) => {
   */
 
   const getLayout = Component.getLayout ?? ((page) => page); // adjust these two if I disable a layout rendering option
-  const Layout = Component.layout ?? Fragment;
-  // or swap the layout rendering priority
-  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
+  // const Layout = Component.layout ?? Fragment;
 
   return (
     <ThemeProvider attribute="class">
-      {/* Header */}
-      <div className="text-black dark:text-white">
-        <nav className="m-5">
-          <Link href="/">
-            <a className="m-2.5">Home</a>
-          </Link>
-          <Link href="/profile">
-            <a className="m-2.5">Profile</a>
-          </Link>
-          {authenticatedState === "not-authenticated" && (
-            <Link href="/signin">
-              <a className="m-2.5">Sign In</a>
-            </Link>
-          )}
-          <Link href="/protected">
-            <a className="m-2.5">Protected</a>
-          </Link>
-        </nav>
-      </div>
+      {getLayout(<Component {...pageProps} />)}
 
-      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+      {/* <Layout>{getLayout(<Component {...pageProps} />)}</Layout> */}
     </ThemeProvider>
   );
+  // or swap the layout rendering priority
+  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
+  //#endregion
 };
 
 export default MyApp;

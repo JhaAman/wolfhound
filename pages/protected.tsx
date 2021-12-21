@@ -15,7 +15,7 @@ interface Props {
   user: User;
 }
 
-const Protected: Page = ({ user }: Props) => {
+const Protected = ({ user }: Props) => {
   console.log({ user });
 
   return (
