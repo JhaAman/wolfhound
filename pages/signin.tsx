@@ -1,4 +1,5 @@
 /* pages/sign-in.js */
+import Link from "next/link";
 import { ReactElement, useState } from "react";
 import LandingLayout from "../layout/LandingLayout";
 
@@ -25,21 +26,32 @@ const SignIn = () => {
     }
   }
 
-  if (submitted) {
-    return (
-      <div>
-        <h1>Please check your email to sign in</h1>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <main>
+      <div className="flex flex-col items-center justify-center h-screen text-center">
+        <h2 className="text-3xl font-bold text-gray-200">Sign into Rosie</h2>
+        {submitted ? (
+          <p className="m-3 text-gray-200">
+            We sent you an email with a link to sign in. Please check your email
+            to sign in.
+          </p>
+        ) : (
+          <div className="flex flex-col m-5">
+            <input className="" onChange={(e) => setEmail(e.target.value)} />
+            <button
+              className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+              onClick={() => signIn()}
+            >
+              Sign In
+            </button>
+          </div>
+        )}
+      </div>
+      {/* <main>
         <h1>Sign In</h1>
         <input className="m-3" onChange={(e) => setEmail(e.target.value)} />
         <button onClick={() => signIn()}>Sign In</button>
-      </main>
+      </main> */}
     </div>
   );
 };
@@ -50,7 +62,7 @@ SignIn.getLayout = (page: ReactElement) => {
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
       meta={<Meta title="Title" description="Description" />}
-      headerActive={true}
+      headerActive={false}
       footerActive={false}
     >
       {page}

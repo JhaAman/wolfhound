@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
-      {/* A auth component that's centered with a sign up button */}
       <div className="flex flex-col items-center justify-center h-screen text-center">
         <h1 className="text-4xl font-bold text-gray-200">Welcome to Rosie</h1>
         <p className="text-gray-200">
@@ -27,14 +26,12 @@ const Home = () => {
             </a>
           </Link>
           <Link href="/signin">
-            <a className="mt-2" href="">
-              <span className="text-gray-200">Sign in</span>
+            <a className="mt-2 text-gray-200" href="">
+              Sign in
             </a>
           </Link>
         </div>
       </div>
-
-      {/* The Auth testing */}
     </div>
   );
 };
