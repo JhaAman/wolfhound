@@ -26,11 +26,11 @@ export default function LandingLayout({
     headerActive and footerActive are bools decided by the page
   */
   return (
-    <div>
+    <>
       {meta}
       {headerActive && <Header />}
       <main className="text-black dark:text-white">{children}</main>
       {footerActive && <Footer />}
-    </div>
+    </>
   );
 }
