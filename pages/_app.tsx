@@ -1,3 +1,8 @@
+/*
+ *  /pages/_app.tsx
+ *  The penultimate parent page, handles assigning layouts to pages and authentication
+ */
+
 import type { AppProps } from "next/app";
 import { Fragment, useState, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
@@ -9,24 +14,24 @@ import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
-// TODO: add supabase auth and theme provider
-
 type Props = AppProps & {
   Component: Page;
 };
 const MyApp = ({ Component, pageProps }: Props) => {
   const router = useRouter();
+
   const [authenticatedState, setAuthenticatedState] =
     useState("not-authenticated");
 
   useEffect(() => {
-    /* fires when a user signs in or out */
+    // A listener that fires when a user signs in or out
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         handleAuthChange(event, session);
+
         if (event === "SIGNED_IN") {
           setAuthenticatedState("authenticated");
-          router.push("/profile");
+          router.push("/app");
         }
         if (event === "SIGNED_OUT") {
           setAuthenticatedState("not-authenticated");
@@ -34,26 +39,20 @@ const MyApp = ({ Component, pageProps }: Props) => {
       }
     );
 
-    checkUser();
+    // When we load in, check to see if we have a user (hide sign-in page)
+    supabase.auth.user() ? setAuthenticatedState("authenticated") : null;
 
+    // Clean up when we unmount
     return () => {
       authListener?.unsubscribe();
     };
   }, []);
 
-  async function checkUser() {
-    /* when the component loads, checks user to show or hide Sign In link */
-    const user = supabase.auth.user();
-    if (user) {
-      setAuthenticatedState("authenticated");
-    }
-  }
-
   async function handleAuthChange(
     event: AuthChangeEvent,
     session: Session | null
   ) {
-    /* sets and removes the Supabase cookie */
+    /* Supabase request that sets and removes the Supabase cookie */
     await fetch("/api/auth", {
       method: "POST",
       headers: new Headers({ "Content-Type": "application/json" }),
@@ -62,18 +61,23 @@ const MyApp = ({ Component, pageProps }: Props) => {
     });
   }
 
-  /* See 
+  /* 
+    Manage layouts for pages
+    
+    See 
     https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
     https://stackoverflow.com/questions/62115518/persistent-layout-in-next-js-with-typescript-and-hoc
     https://nextjs.org/docs/basic-features/layouts
   */
 
-  // adjust accordingly if you disabled a layout rendering option
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page) => page); // adjust these two if I disable a layout rendering option
   const Layout = Component.layout ?? Fragment;
+  // or swap the layout rendering priority
+  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
 
   return (
     <ThemeProvider attribute="class">
+      {/* Header */}
       <div className="text-black dark:text-white">
         <nav className="m-5">
           <Link href="/">
@@ -96,16 +100,6 @@ const MyApp = ({ Component, pageProps }: Props) => {
       <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
     </ThemeProvider>
   );
-
-  // or swap the layout rendering priority
-  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
-};
-
-const navStyle = {
-  margin: 20,
-};
-const linkStyle = {
-  marginRight: 10,
 };
 
 export default MyApp;

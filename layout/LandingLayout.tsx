@@ -28,7 +28,7 @@ export default function LandingLayout({
     <div>
       {meta}
       {headerActive && <Header />}
-      <main>{children}</main>
+      <main className="text-black dark:text-white">{children}</main>
       {footerActive && <Footer />}
     </div>
   );

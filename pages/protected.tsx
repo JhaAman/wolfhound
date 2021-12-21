@@ -1,13 +1,21 @@
+/*
+ *  /pages/protected.tsx
+ *  An example of a protected page that uses SSR to determine routing
+ */
+
 import supabase from "../lib/supabase";
 import { User } from "@supabase/supabase-js";
 
 import React, { ReactElement } from "react";
+import { Page } from "../global";
+import LandingLayout from "../layout/LandingLayout";
+import Meta from "./_components/landing/Meta";
 
 interface Props {
   user: User;
 }
 
-export default function Protected({ user }: Props) {
+const Protected: Page = ({ user }: Props) => {
   console.log({ user });
 
   return (
@@ -15,7 +23,7 @@ export default function Protected({ user }: Props) {
       <h2>Hello from protected route</h2>
     </div>
   );
-}
+};
 
 interface SSRProps {
   req: any;
@@ -32,3 +40,19 @@ export async function getServerSideProps({ req }: SSRProps) {
   /* if a user is set, pass it to the page via props */
   return { props: { user } };
 }
+
+// Attach the landing layout (and other nested layouts) to the page
+Protected.getLayout = (page) => {
+  return (
+    // Attach the Landing layout with a meta component, decide on header/footer
+    <LandingLayout
+      meta={<Meta title="Title" description="Description" />}
+      headerActive={false}
+      footerActive={false}
+    >
+      {page}
+    </LandingLayout>
+  );
+};
+
+export default Protected;
