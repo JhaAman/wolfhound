@@ -11,16 +11,16 @@ const Home = () => {
       {/* <DarkMode /> */}
       <div className="flex flex-col items-center justify-center h-screen text-center">
         <h1 className="text-4xl font-bold text-gray-200">Welcome to Rosie</h1>
-        <p className="text-gray-200">
+        <p className="mt-3 text-gray-300">
           Rosie is an oracle that can answer React questions.
         </p>
-        <p className="text-gray-200">
+        <p className="text-gray-300">
           Just like StackOverflow, except Rosie is instant, specific, and
           non-judgemental.
         </p>
         {/* The sign up button */}
         <div className="flex flex-col mt-10">
-          <Link href="/signin">
+          <Link href="/welcome">
             <a className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
               Join the Waitlist
             </a>
