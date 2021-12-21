@@ -42,15 +42,15 @@ export default function Document() {
         />
         <meta content="#FE315E" name="theme-color" />
         <meta content="#FE315E" name="msapplication-TileColor" />
-        <meta
+        {/* <meta
           content="/static/favicons/browserconfig.xml"
           name="msapplication-config"
-        />
-        <meta content="14d2e73487fa6c71" name="yandex-verification" />
-        <meta
+        /> */}
+        {/* <meta content="14d2e73487fa6c71" name="yandex-verification" /> */}
+        {/* <meta
           content="eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw"
           name="google-site-verification"
-        />
+        /> */}
       </Head>
       <body className="text-white bg-gray-900">
         <Main />

@@ -4,13 +4,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { AppConfig } from "../../../lib/config";
 
-type IMetaProps = {
+type MetaProps = {
   title: string;
   description: string;
   canonical?: string;
 };
 
-const Meta = (props: IMetaProps) => {
+const Meta = (props: MetaProps) => {
   const router = useRouter();
 
   return (
@@ -24,26 +24,26 @@ const Meta = (props: IMetaProps) => {
         />
         <link
           rel="apple-touch-icon"
-          href={`${router.basePath}/static/favicons/apple-touch-icon.png`}
+          href={`${router.basePath}/static/favicon_io/apple-touch-icon.png`}
           key="apple"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href={`${router.basePath}/static/favicons/favicon-32x32.png`}
+          href={`${router.basePath}/static/favicon_io/favicon-32x32.png`}
           key="icon32"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href={`${router.basePath}/static/favicons/favicon-16x16.png`}
+          href={`${router.basePath}/static/favicon_io/favicon-16x16.png`}
           key="icon16"
         />
         <link
           rel="icon"
-          href={`${router.basePath}/static/favicons/favicon.ico`}
+          href={`${router.basePath}/static/favicon_io/favicon.ico`}
           key="favicon"
         />
       </Head>

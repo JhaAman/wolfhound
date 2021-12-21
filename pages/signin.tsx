@@ -84,7 +84,12 @@ SignIn.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
-      meta={<Meta title="Title" description="Description" />}
+      meta={
+        <Meta
+          title="Sign into Rosie"
+          description="Ready to code 10x faster? Get in there!"
+        />
+      }
       headerActive={false}
       footerActive={false}
     >

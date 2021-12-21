@@ -59,7 +59,12 @@ Home.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
-      meta={<Meta title="Title" description="Description" />}
+      meta={
+        <Meta
+          title="Rosie"
+          description="Welcome to Rosie - code React apps 10x faster"
+        />
+      }
       headerActive={false}
       footerActive={false}
     >
