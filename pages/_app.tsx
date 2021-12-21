@@ -9,15 +9,11 @@ import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Page } from "../global";
+import { NextPageWithLayout, Page } from "../global";
 import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
-
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -79,18 +75,13 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     https://nextjs.org/docs/basic-features/layouts
   */
 
-  const getLayout = Component.getLayout ?? ((page) => page); // adjust these two if I disable a layout rendering option
-  // const Layout = Component.layout ?? Fragment;
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <ThemeProvider attribute="class">
       {getLayout(<Component {...pageProps} />)}
-
-      {/* <Layout>{getLayout(<Component {...pageProps} />)}</Layout> */}
     </ThemeProvider>
   );
-  // or swap the layout rendering priority
-  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
   //#endregion
 };
 

@@ -6,7 +6,7 @@ import Header from "../pages/_components/landing/Header";
 
 // TODO: add fathom client, etc.
 
-type ILandingProps = {
+type LandingProps = {
   meta: ReactNode;
   children: ReactNode;
   headerActive: boolean;
@@ -18,7 +18,7 @@ export default function LandingLayout({
   children,
   headerActive,
   footerActive,
-}: ILandingProps): ReactElement {
+}: LandingProps): ReactElement {
   /*
     Meta component is passed in from the page
     Children is the page itself (react keyword)
