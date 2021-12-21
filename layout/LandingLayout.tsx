@@ -2,12 +2,10 @@
 
 import { KBarProvider } from "kbar";
 import React, { ReactElement, ReactNode } from "react";
-import CommandBar, {
-  actions,
-} from "../pages/_components/landing/LandingCmdBar";
 
 import Footer from "../pages/_components/landing/Footer";
 import Header from "../pages/_components/landing/Header";
+import CommandBar from "../pages/_components/landing/LandingCmdBar";
 
 // TODO: add fathom client, etc.
 
@@ -30,17 +28,19 @@ export default function LandingLayout({
     headerActive and footerActive are bools decided by the page
   */
   return (
-    <KBarProvider
-      options={{
-        enableHistory: true,
-      }}
-      actions={actions}
-    >
+    // <KBarProvider
+    //   options={{
+    //     enableHistory: true,
+    //   }}
+    //   actions={actions}
+    // >
+    <>
       {meta}
       {headerActive && <Header />}
-      <LandingCmdBar />
+      {/* <CommandBar/> */}
       <main className="text-black dark:text-white">{children}</main>
       {footerActive && <Footer />}
-    </KBarProvider>
+    </>
+    // </KBarProvider>
   );
 }
