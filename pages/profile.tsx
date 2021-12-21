@@ -1,10 +1,12 @@
 /* pages/profile.js */
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import supabase from "../lib/supabase";
 import { useRouter } from "next/router";
 import { User } from "@supabase/supabase-js";
+import LandingLayout from "../layout/LandingLayout";
+import Meta from "./_components/landing/Meta";
 
-export default function Profile() {
+const Profile = () => {
   const [user, setUser] = useState<User>();
   const router = useRouter();
 
@@ -35,4 +37,20 @@ export default function Profile() {
       <button onClick={signOut}>Sign Out</button>
     </div>
   );
-}
+};
+
+// Attach the landing layout (and other nested layouts) to the page
+Profile.getLayout = (page: ReactElement) => {
+  return (
+    // Attach the Landing layout with a meta component, decide on header/footer
+    <LandingLayout
+      meta={<Meta title="Title" description="Description" />}
+      headerActive={true}
+      footerActive={false}
+    >
+      {page}
+    </LandingLayout>
+  );
+};
+
+export default Profile;

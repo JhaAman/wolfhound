@@ -7,7 +7,6 @@ import supabase from "../lib/supabase";
 import { User } from "@supabase/supabase-js";
 
 import React, { ReactElement } from "react";
-import { NextPageWithLayout, Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
 import Meta from "./_components/landing/Meta";
 

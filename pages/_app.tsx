@@ -4,24 +4,22 @@
  */
 
 import type { AppProps } from "next/app";
-import { Fragment, useState, useEffect, ReactElement, ReactNode } from "react";
+import { useState, useEffect, ReactElement, ReactNode } from "react";
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { NextPageWithLayout, Page } from "../global";
 import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-type Props = AppProps & {
-  Component: Page;
-};
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   //#region Authentication
   const router = useRouter();
