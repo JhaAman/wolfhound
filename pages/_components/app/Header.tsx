@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import supabase from "../../../lib/supabase";
 
-export default function Header(props: { user: User }): ReactElement {
-  const { user } = props;
+export default function Header(): ReactElement {
   const router = useRouter();
 
   async function signOut() {

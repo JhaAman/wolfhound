@@ -1,5 +1,6 @@
 /* The base layout for the core webapp */
 
+import Head from "next/head";
 import React, { ReactElement, ReactNode } from "react";
 import Header from "../pages/_components/app/Header";
 
@@ -12,7 +13,12 @@ type AppProps = {
 export default function AppLayout({ children }: AppProps): ReactElement {
   return (
     <div>
+      <Head>
+        <title>Rosie</title>
+        <link rel="icon" href="favicon.ico" />
+      </Head>
       <Header />
+
       <main>{children}</main>
     </div>
   );
