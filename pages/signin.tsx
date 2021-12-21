@@ -1,4 +1,5 @@
 /* pages/sign-in.js */
+import mixpanel from "mixpanel-browser";
 import Link from "next/link";
 import { ReactElement, useState } from "react";
 import LandingLayout from "../layout/LandingLayout";
@@ -20,9 +21,18 @@ const SignIn = () => {
       { redirectTo: redirect_url }
     );
     if (error) {
-      console.log("Supabase magic link sending error", { error });
+      console.log("Supabase magic link sending error", error);
+
+      mixpanel.track("Magic Link Error", {
+        email: email,
+        error: error,
+      });
     } else {
       setSubmitted(true);
+
+      mixpanel.track("Sent Magic Link", {
+        email: email,
+      });
     }
   }
 

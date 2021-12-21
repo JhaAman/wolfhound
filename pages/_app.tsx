@@ -12,6 +12,7 @@ import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
+import mixpanel from "mixpanel-browser";
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -34,6 +35,15 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
         if (event === "SIGNED_IN") {
           setAuthenticatedState("authenticated");
+          mixpanel.identify(session?.user?.id);
+          mixpanel.people.set({
+            $email: session?.user?.email,
+          });
+          mixpanel.track("Sign In", {
+            email: session?.user?.email,
+            user: session?.user,
+          });
+
           router.push("/app");
         }
         if (event === "SIGNED_OUT") {
