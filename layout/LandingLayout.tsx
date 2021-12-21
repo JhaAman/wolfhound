@@ -1,11 +1,9 @@
 /* Basic site layout for all landing pages, like home, pricing etc */
 
-import { KBarProvider } from "kbar";
 import React, { ReactElement, ReactNode } from "react";
 
 import Footer from "../pages/_components/landing/Footer";
 import Header from "../pages/_components/landing/Header";
-import CommandBar from "../pages/_components/landing/LandingCmdBar";
 
 // TODO: add fathom client, etc.
 
@@ -37,7 +35,6 @@ export default function LandingLayout({
     <>
       {meta}
       {headerActive && <Header />}
-      {/* <CommandBar/> */}
       <main className="text-black dark:text-white">{children}</main>
       {footerActive && <Footer />}
     </>
