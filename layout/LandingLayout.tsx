@@ -2,7 +2,9 @@
 
 import { KBarProvider } from "kbar";
 import React, { ReactElement, ReactNode } from "react";
-import AppCmdBar, { actions } from "../pages/_components/app/AppCmdBar";
+import CommandBar, {
+  actions,
+} from "../pages/_components/landing/LandingCmdBar";
 
 import Footer from "../pages/_components/landing/Footer";
 import Header from "../pages/_components/landing/Header";
@@ -36,7 +38,7 @@ export default function LandingLayout({
     >
       {meta}
       {headerActive && <Header />}
-      <AppCmdBar />
+      <LandingCmdBar />
       <main className="text-black dark:text-white">{children}</main>
       {footerActive && <Footer />}
     </KBarProvider>
