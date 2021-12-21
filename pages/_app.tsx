@@ -1,11 +1,12 @@
 import type { AppProps } from "next/app";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { Page } from "../global";
-import "../styles/globals.css";
-
 import supabase from "../lib/supabase";
+import "../styles/globals.css";
 
 // TODO: add supabase auth and theme provider
 
