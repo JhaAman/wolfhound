@@ -9,13 +9,14 @@ const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const MainApp = (props: { user: User }) => {
   const { user } = props;
+  console.log(user);
 
   // UseState to store the question submission and answer repsonse
   const [answer, setAnswer] = React.useState("Waiting for a question...");
 
   /* on getting submit from Question Panel, fetch from API */
   const submitQuestion = (type: string, question: string) => {
-    const email = "gunujha@gmail.com";
+    const email = user.email;
 
     // use fetch to get the answer
     fetch(`${api_base_url}` + "howto", {
@@ -32,10 +33,9 @@ const MainApp = (props: { user: User }) => {
   };
 
   return (
-    <div className="text-black dark:text-white">
-      <div className="container mx-auto mt-24 md:max-w-screen-xl">
+    <div className="text-white ">
+      <div className="container mx-auto mt-12 md:max-w-screen-xl">
         <div className="grid grid-cols-1 md:grid-cols-6">
-          <h1>Welcome, {user.email}</h1>
           {/* Question Panel */}
           <div className="px-4 md:col-start-1 md:col-end-4 mb-14">
             <QuestionPanel submitQuestion={submitQuestion} />

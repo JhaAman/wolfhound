@@ -3,11 +3,8 @@ import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 import supabase from "../../../lib/supabase";
 
-interface Props {
-  user: User;
-}
-
-export default function Header({ user }: Props): ReactElement {
+export default function Header(props: { user: User }): ReactElement {
+  const { user } = props;
   const router = useRouter();
 
   async function signOut() {
@@ -18,12 +15,16 @@ export default function Header({ user }: Props): ReactElement {
   return (
     <header>
       {/* Header */}
-      <button onClick={signOut} className="text-gray-400">
+      {/* <p>Welcome, {user.email}</p> */}
+      <button onClick={signOut} className="mt-5 ml-5 text-gray-400">
         Sign Out
       </button>
     </header>
   );
 }
+
+// TODO: components don't get serverside props, but they may be able to get
+// TODO: initial props, according to Rosie, anyway. So see if I can display user info that way
 
 export async function getServerSideProps(props: { req: any }) {
   const { req } = props;
@@ -34,8 +35,8 @@ export async function getServerSideProps(props: { req: any }) {
   /* if no user is set, redirect to the sign-in page */
   if (!user) {
     return { props: {}, redirect: { destination: "/signin" } };
+  } else {
+    /* if a user is set, pass it to the page via props */
+    return { props: { user } };
   }
-
-  /* if a user is set, pass it to the page via props */
-  return { props: { user } };
 }

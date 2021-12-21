@@ -41,7 +41,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
             {/* A form that asks for the question type, one liner and details */}
             <form onSubmit={(event) => handleSubmit(event)}>
               {/* Type */}
-              <label className="block mb-2 font-bold tracking-wide text-gray-200 ">
+              {/* <label className="block mb-2 font-bold tracking-wide text-gray-200 ">
                 Type of question
               </label>
               <div className="relative mb-4">
@@ -51,7 +51,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
                   <option>Fix this</option>
                   <option>Error</option>
                 </select>
-              </div>
+              </div> */}
 
               {/* One Liner */}
               <label className="block mb-2 font-bold tracking-wide text-gray-200 ">
@@ -84,7 +84,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
 
               {/* Clear button */}
               <button
-                className="w-1/3 p-2 mt-4 text-white bg-red-500 rounded-lg shadow-lg"
+                className="w-1/3 p-2 mt-4 ml-3 text-white bg-red-500 rounded-lg shadow-lg"
                 type="reset"
               >
                 Clear

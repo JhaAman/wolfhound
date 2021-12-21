@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
 
 import LandingLayout from "../layout/LandingLayout";
+import supabase from "../lib/supabase";
 import DarkMode from "./_components/landing/DarkMode";
 import Meta from "./_components/landing/Meta";
 
@@ -35,6 +36,23 @@ const Home = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(props: { req: any }) {
+  const { req } = props;
+
+  /* check to see if a user is set */
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+
+  /* if no user is set, redirect to the sign-in page */
+  if (user) {
+    return { props: {}, redirect: { destination: "/app" } };
+  }
+
+  /* if a user is set, pass it to the page via props */
+  return {
+    props: {},
+  };
+}
 
 // Attach the landing layout (and other nested layouts) to the page
 Home.getLayout = (page: ReactElement) => {
