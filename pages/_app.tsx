@@ -74,24 +74,23 @@ const MyApp = ({ Component, pageProps }: Props) => {
 
   return (
     <ThemeProvider attribute="class">
-      <div>
-        <nav style={navStyle}>
+      <div className="text-black dark:text-white">
+        <nav className="m-5">
           <Link href="/">
-            <a style={linkStyle}>Home</a>
+            <a className="m-2.5">Home</a>
           </Link>
           <Link href="/profile">
-            <a style={linkStyle}>Profile</a>
+            <a className="m-2.5">Profile</a>
           </Link>
           {authenticatedState === "not-authenticated" && (
             <Link href="/signin">
-              <a style={linkStyle}>Sign In</a>
+              <a className="m-2.5">Sign In</a>
             </Link>
           )}
           <Link href="/protected">
-            <a style={linkStyle}>Protected</a>
+            <a className="m-2.5">Protected</a>
           </Link>
         </nav>
-        <Component {...pageProps} />
       </div>
 
       <Layout>{getLayout(<Component {...pageProps} />)}</Layout>

@@ -1,6 +1,5 @@
 /* pages/sign-in.js */
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
 
 import supabase from "../lib/supabase";
 
@@ -21,16 +20,16 @@ export default function SignIn() {
 
   if (submitted) {
     return (
-      <div className={styles.container}>
+      <div className="text-black dark:text-white">
         <h1>Please check your email to sign in</h1>
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>Sign In</h1>
+    <div className="text-black dark:text-white">
+      <main className="">
+        <h1 className="">Sign In</h1>
         <input
           onChange={(e) => setEmail(e.target.value)}
           style={{ margin: 10 }}

@@ -15,8 +15,7 @@ export default function Profile() {
   async function fetchProfile() {
     const user = supabase.auth.user();
     if (!user) {
-      // router.push("/signin");
-      console.log("no user");
+      router.push("/signin");
     } else {
       setUser(user);
     }
@@ -30,7 +29,7 @@ export default function Profile() {
   if (!user) return null;
 
   return (
-    <div style={{ maxWidth: "420px", margin: "96px auto" }}>
+    <div className="max-w-xl m-auto text-black dark:text-white">
       <h2>Hello, {user.email}</h2>
       <p>User ID: {user.id}</p>
       <button onClick={signOut}>Sign Out</button>
