@@ -28,6 +28,7 @@ const SignIn = () => {
         error: error,
       });
     } else {
+      console.log("Sent a magic link to " + email);
       setSubmitted(true);
 
       mixpanel.track("Sent Magic Link", {

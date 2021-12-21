@@ -13,6 +13,7 @@ import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
 import mixpanel from "mixpanel-browser";
+import { mixpanelInit } from "../lib/mixpanel";
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -22,6 +23,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  mixpanelInit();
   //#region Authentication
   const router = useRouter();
   const [authenticatedState, setAuthenticatedState] =
@@ -61,7 +63,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     return () => {
       authListener?.unsubscribe();
     };
-  });
+  }, [router]);
 
   async function handleAuthChange(
     event: AuthChangeEvent,

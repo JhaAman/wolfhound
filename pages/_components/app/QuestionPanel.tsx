@@ -1,3 +1,5 @@
+import { createHash } from "crypto";
+import mixpanel from "mixpanel-browser";
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
@@ -27,7 +29,15 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
   // Handle submit button
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitQuestion(type, createQuestion(oneLiner, details));
+    const question = createQuestion(oneLiner, details);
+    submitQuestion(type, question);
+
+    const hash = createHash("sha256");
+    hash.update(question);
+    console.log(hash.digest("hex"));
+    // mixpanel.track("Question Asked", {
+    //   question_hash: createHash(question).toString(),
+    // });
   };
 
   return (
