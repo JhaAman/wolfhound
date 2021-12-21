@@ -18,7 +18,9 @@ export default function Header({ user }: Props): ReactElement {
   return (
     <header>
       {/* Header */}
-      <button onClick={signOut}>Sign Out</button>
+      <button onClick={signOut} className="text-gray-400">
+        Sign Out
+      </button>
     </header>
   );
 }
