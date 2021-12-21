@@ -1,4 +1,6 @@
 import { User } from "@supabase/supabase-js";
+import { createHash } from "crypto";
+import mixpanel from "mixpanel-browser";
 import React, { ReactElement, useEffect } from "react";
 import AppLayout from "../../layout/AppLayout";
 import supabase from "../../lib/supabase";
@@ -9,7 +11,7 @@ const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const MainApp = (props: { user: User }) => {
   const { user } = props;
-  console.log(user);
+  // console.log(user);
 
   // UseState to store the question submission and answer repsonse
   const [answer, setAnswer] = React.useState("Waiting for a question...");
@@ -28,7 +30,30 @@ const MainApp = (props: { user: User }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        const hash = createHash("sha256");
+        hash.update(question);
+        console.log(hash.digest("hex"));
+
+        mixpanel.track("Question Answered", {
+          question_hash: hash.digest("hex"),
+          question: question,
+          answer: data.answer,
+        });
+
         setAnswer(data.answer);
+      })
+      .catch((error) => {
+        console.log("Question could not be answered", error);
+
+        const hash = createHash("sha256");
+        hash.update(question);
+        console.log(hash.digest("hex"));
+
+        mixpanel.track("Question Not Answered", {
+          question_hash: hash.digest("hex"),
+          question: question,
+          error: error,
+        });
       });
   };
 
