@@ -36,15 +36,27 @@ const SignIn = () => {
             to sign in.
           </p>
         ) : (
-          <div className="flex flex-col m-5">
-            <input className="" onChange={(e) => setEmail(e.target.value)} />
+          <form
+            className="flex flex-col m-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+          >
+            <input
+              className=""
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              required={true}
+            />
             <button
               className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
-              onClick={() => signIn()}
+              // onClick={}
+              type="submit"
             >
               Sign In
             </button>
-          </div>
+          </form>
         )}
       </div>
       {/* <main>
