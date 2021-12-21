@@ -46,7 +46,7 @@ Protected.getLayout = (page: ReactElement) => {
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
       meta={<Meta title="Title" description="Description" />}
-      headerActive={false}
+      headerActive={true}
       footerActive={false}
     >
       {page}
