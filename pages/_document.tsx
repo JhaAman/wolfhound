@@ -1,11 +1,3 @@
-/*
-<Html className="dark">
-  <body className="dark:bg-gray-800">
-    <Main />
-    <NextScript />
-  </body>
-</Html>
-*/
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -60,7 +52,7 @@ export default function Document() {
           name="google-site-verification"
         />
       </Head>
-      <body className="text-white bg-white dark:bg-black dark:text-black">
+      <body className="text-white bg-gray-900">
         <Main />
         <NextScript />
       </body>

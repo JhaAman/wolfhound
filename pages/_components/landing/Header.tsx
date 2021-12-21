@@ -7,7 +7,7 @@ export default function Header({}: Props): ReactElement {
   return (
     <header>
       {/* Header */}
-      <div className="text-black dark:text-white">
+      <div className="">
         <nav className="m-5">
           <Link href="/">
             <a className="m-2.5">Home</a>
