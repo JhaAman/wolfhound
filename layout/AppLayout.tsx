@@ -15,7 +15,6 @@ export default function AppLayout({ children }: AppProps): ReactElement {
     <div>
       <Head>
         <title>Rosie</title>
-        <link rel="icon" href="favicon.ico" />
       </Head>
       <Header />
 
