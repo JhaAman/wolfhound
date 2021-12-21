@@ -1,12 +1,12 @@
 /* pages/sign-in.js */
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
 
 import supabase from "../lib/supabase";
 import Meta from "./_components/landing/Meta";
 
-const SignIn: Page = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -41,7 +41,7 @@ const SignIn: Page = () => {
 };
 
 // Attach the landing layout (and other nested layouts) to the page
-SignIn.getLayout = (page) => {
+SignIn.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout

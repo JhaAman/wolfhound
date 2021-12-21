@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 import { Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
 import Meta from "./_components/landing/Meta";
 
-const Home: Page = () => {
+const Home = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -68,7 +68,7 @@ const Home: Page = () => {
 };
 
 // Attach the landing layout (and other nested layouts) to the page
-Home.getLayout = (page) => {
+Home.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout

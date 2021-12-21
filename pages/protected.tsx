@@ -7,7 +7,7 @@ import supabase from "../lib/supabase";
 import { User } from "@supabase/supabase-js";
 
 import React, { ReactElement } from "react";
-import { Page } from "../global";
+import { NextPageWithLayout, Page } from "../global";
 import LandingLayout from "../layout/LandingLayout";
 import Meta from "./_components/landing/Meta";
 
@@ -15,7 +15,7 @@ interface Props {
   user: User;
 }
 
-const Protected: Page = ({ user }: Props) => {
+const Protected = ({ user }: Props) => {
   console.log({ user });
 
   return (
@@ -42,7 +42,7 @@ export async function getServerSideProps({ req }: SSRProps) {
 }
 
 // Attach the landing layout (and other nested layouts) to the page
-Protected.getLayout = (page) => {
+Protected.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
