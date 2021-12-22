@@ -43,12 +43,12 @@ export async function getServerSideProps(props: { req: any }) {
   /* check to see if a user is set */
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
-  /* if no user is set, redirect to the sign-in page */
+  // If we have a user logged in, then nav to app
   if (user) {
     return { props: {}, redirect: { destination: "/app" } };
   }
 
-  /* if a user is set, pass it to the page via props */
+  // If there is no user logged in, then let them see the home page
   return {
     props: {},
   };
