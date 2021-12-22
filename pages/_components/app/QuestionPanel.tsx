@@ -70,7 +70,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
                 One-Liner
               </label>
               <input
-                className="w-full p-2 text-gray-800 border-2 border-gray-500 rounded-lg"
+                className="w-full p-2 text-gray-200 border-2 border-gray-500 rounded-lg"
                 type="text"
                 placeholder="How would you ask a friend?"
                 onChange={handleOneLinerChange}
@@ -81,7 +81,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
                 Description
               </label>
               <textarea
-                className="w-full p-2 pb-20 text-gray-800 border-2 border-gray-500 rounded-lg"
+                className="w-full p-2 pb-20 text-gray-200 border-2 border-gray-500 rounded-lg"
                 placeholder="Add details or code here - try to be specific!"
                 onChange={handleDetailsChange}
               />
