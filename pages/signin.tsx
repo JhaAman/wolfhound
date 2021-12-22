@@ -18,15 +18,24 @@ const SignIn = (props: { beta_list: any }) => {
 
   const [email, setEmail] = useState("");
   const [state, setState] = useState("no_submit");
-  const [jsx, setJsx] = useState<JSX.Element | null>(null);
-  // const [submitted, setSubmitted] = useState(false);
+  /*
+    The four states are:
+    no_submit: no submit
+    loading
+    error
+    sent
+    no_beta
+  */
 
   async function signIn() {
     // Check if email is on the beta list using isEmail
     const isOnBetaList = beta_list.some((obj: { Email: string }) =>
       isEmail(email, obj)
     );
+
     if (isOnBetaList) {
+      setState("loading");
+
       // If email is on the beta list, send a magic link
       const { error } = await supabase.auth.signIn({
         email,
@@ -34,6 +43,7 @@ const SignIn = (props: { beta_list: any }) => {
 
       if (error) {
         console.log("Supabase magic link sending error", error);
+        setState("error");
 
         mixpanel.track("Magic Link Error", {
           email: email,
@@ -48,67 +58,16 @@ const SignIn = (props: { beta_list: any }) => {
           email: email,
         });
       }
+    } else {
+      setState("no_beta");
     }
   }
-
-  useEffect(() => {
-    switch (state) {
-      case "no_submit":
-        setJsx(
-          <form
-            className="flex flex-col m-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              signIn();
-            }}
-          >
-            <input
-              className=""
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              required={true}
-            />
-            <button
-              className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
-              // onClick={}
-              type="submit"
-            >
-              Sign In
-            </button>
-          </form>
-        );
-        break;
-      case "sent":
-        setJsx(
-          <p className="m-3 text-gray-200">
-            We sent you an email with a link to sign in. Please check your email
-            to sign in.
-          </p>
-        );
-        break;
-      case "no_beta":
-        setJsx(
-          <p className="m-3 text-gray-200">
-            Sorry, we do not have that email on the beta list.
-          </p>
-        );
-        break;
-      default:
-        setJsx(null);
-    }
-  }, [state]);
 
   return (
     <div>
       <div className="flex flex-col items-center justify-center h-screen text-center">
         <h2 className="text-3xl font-bold text-gray-200">Sign into Rosie</h2>
-        {jsx}
-        {/* {submitted ? (
-          <p className="m-3 text-gray-200">
-            We sent you an email with a link to sign in. Please check your email
-            to sign in.
-          </p>
-        ) : (
+        {state === "no_submit" && (
           <form
             className="flex flex-col m-5"
             onSubmit={(e) => {
@@ -130,7 +89,55 @@ const SignIn = (props: { beta_list: any }) => {
               Sign In
             </button>
           </form>
-        )} */}
+        )}
+        {state === "sent" && (
+          <p className="m-3 text-gray-200">
+            Successfully sent you a magic link! Please check your email to sign
+            in.
+          </p>
+        )}
+        {state === "no_beta" && (
+          <>
+            <p className="m-3 text-gray-200">
+              {`Hmm, you're not on the beta list yet. Please `}
+              <Link href="/welcome">
+                <a className="text-red-400">sign up</a>
+              </Link>
+              {`, and we'll get you on the list ASAP. Thanks!`}
+              <br /> Or, try signing in with a different email.
+            </p>
+            <form
+              className="flex flex-col m-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                signIn();
+              }}
+            >
+              <input
+                className=""
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                required={true}
+              />
+              <button
+                className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+                // onClick={}
+                type="submit"
+              >
+                Sign In
+              </button>
+            </form>
+          </>
+        )}
+        {state === "loading" && (
+          <p className="m-3 text-gray-200">Sending you a magic link...</p>
+        )}
+        {state === "error" && (
+          <p className="m-3 text-gray-200">
+            We had some trouble sending you an email. Please email us at
+            aman@rosieos.com
+          </p>
+        )}
       </div>
     </div>
   );
