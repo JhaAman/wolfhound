@@ -37,8 +37,8 @@ const Home = () => {
   );
 };
 
-export async function getServerSideProps(props: { req: any }) {
-  const { req } = props;
+export async function getServerSideProps(ctx: { req: any }) {
+  const { req } = ctx;
 
   /* check to see if a user is set */
   const { user } = await supabase.auth.api.getUserByCookie(req);

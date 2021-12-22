@@ -146,6 +146,14 @@ const SignIn = (props: { beta_list: any }) => {
 export async function getServerSideProps(ctx: { req: any }) {
   const { req } = ctx;
 
+  // Check if user is logged in
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+  // If we have a user logged in, then nav to app
+  if (user) {
+    return { props: {}, redirect: { destination: "/app" } };
+  }
+
+  // If we don't have a user logged in, then continue sign in process
   const { data, error } = await supabase.from("Beta List").select();
 
   /* if a user is set, pass it to the page via props */
