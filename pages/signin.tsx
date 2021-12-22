@@ -12,8 +12,8 @@ const redirect_url = process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL;
 const SignIn = (props: { beta_list: any }) => {
   const { beta_list } = props;
 
-  const isEmail = (email: string, obj: { Email: string }) => {
-    return email === obj.Email;
+  const isEmail = (email: string, obj: { email: string }) => {
+    return email === obj.email;
   };
 
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ const SignIn = (props: { beta_list: any }) => {
 
   async function signIn() {
     // Check if email is on the beta list using isEmail
-    const isOnBetaList = beta_list.some((obj: { Email: string }) =>
+    const isOnBetaList = beta_list.some((obj: { email: string }) =>
       isEmail(email, obj)
     );
 
