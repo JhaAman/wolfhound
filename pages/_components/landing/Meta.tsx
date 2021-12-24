@@ -1,4 +1,9 @@
-/* Meta file is a component responsible for adding SEO */
+/* 
+  pages/_components/landing/Meta.tsx
+  ------------------------
+  A component created by all landing pages - it helps with favicons and SEO
+ */
+
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -47,6 +52,8 @@ const Meta = (props: MetaProps) => {
           key="favicon"
         />
       </Head>
+
+      {/* SEO */}
       <NextSeo
         title={props.title}
         description={props.description}
