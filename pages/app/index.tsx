@@ -1,3 +1,10 @@
+/* 
+  pages/app/index.tsx
+  ------------------------
+  The main page for the core webapp, (home)
+  Currently used for asking and answering questions
+ */
+
 import { User } from "@supabase/supabase-js";
 import { createHash } from "crypto";
 import mixpanel from "mixpanel-browser";

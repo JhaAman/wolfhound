@@ -1,6 +1,7 @@
-/*
- *  /pages/protected.tsx
- *  An example of a protected page that uses SSR to determine routing
+/* 
+  pages/protected.tsx
+  ------------------------
+  A temporary page that shows how to do server-side auth protection
  */
 
 import supabase from "../lib/supabase";

@@ -1,3 +1,9 @@
+/* 
+  pages/_document.tsx
+  ------------------------
+  Modifies the HTML behind every page - adds default favicons and fonts
+ */
+
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

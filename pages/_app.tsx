@@ -1,19 +1,21 @@
-/*
- *  /pages/_app.tsx
- *  The penultimate parent page, handles assigning layouts to pages and authentication
+/* 
+  pages/_app.tsx
+  ------------------------
+  A wrapped page that attaches layouts to every page in this repo, landing and app
+  Also handles authentication cross-app, and initializes mixpanel tracking.
  */
 
 import type { AppProps } from "next/app";
 import { useState, useEffect, ReactElement, ReactNode } from "react";
 import { ThemeProvider } from "next-themes";
 import { useRouter } from "next/router";
-
 import supabase from "../lib/supabase";
 import "../styles/globals.css";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
 import mixpanel from "mixpanel-browser";
 import { mixpanelInit } from "../lib/mixpanel";
+
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };

@@ -1,4 +1,9 @@
-/* pages/profile.js */
+/* 
+  pages/profile.tsx
+  ------------------------
+  A temporary page that shows how to do client-side auth protection
+ */
+
 import { useState, useEffect, ReactElement } from "react";
 import supabase from "../lib/supabase";
 import { useRouter } from "next/router";

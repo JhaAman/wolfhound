@@ -1,3 +1,9 @@
+/* 
+  pages/index.tsx
+  ------------------------
+  The main landing page - rosieos.com
+ */
+
 import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
 
@@ -37,6 +43,7 @@ const Home = () => {
   );
 };
 
+// If the user is already logged in, we should send them to the app straightaway
 export async function getServerSideProps(ctx: { req: any }) {
   const { req } = ctx;
 
