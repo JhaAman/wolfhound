@@ -1,9 +1,10 @@
-import mixpanel from "mixpanel-browser";
-// or with require() syntax:
-// const mixpanel = require('mixpanel-browser');
+/* 
+  lib/mixpanel.ts
+  ------------------------
+  A quick series of functions that relate to Mixpanel.
+ */
 
-// Enabling the debug mode flag is useful during implementation,
-// but it's recommended you remove it for production
+import mixpanel from "mixpanel-browser";
 
 export function mixpanelInit() {
   mixpanel.init("c65635ca1d6461267733659d2c821911", {

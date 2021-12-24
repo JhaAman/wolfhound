@@ -1,4 +1,8 @@
-/* The base layout for the core webapp */
+/* 
+  layout/AppLayout.tsx
+  ------------------------
+  This layout component wraps around all the core webapp pages (in pages/app/).
+ */
 
 import Head from "next/head";
 import React, { ReactElement, ReactNode } from "react";

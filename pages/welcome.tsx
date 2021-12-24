@@ -1,3 +1,9 @@
+/* 
+  pages/welcome.tsx
+  ------------------------
+  The page where people can fill out the Typeform
+ */
+
 import React, { ReactElement } from "react";
 import { Widget } from "@typeform/embed-react";
 import LandingLayout from "../layout/LandingLayout";

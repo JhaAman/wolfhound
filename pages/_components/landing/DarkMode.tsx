@@ -1,5 +1,11 @@
-import { useTheme } from "next-themes";
+/* 
+  pages/_components/landing/DarkMode.tsx
+  ------------------------
+  A button that toggles between light and dark mode. 
+ */
+
 import React, { ReactElement, useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 interface Props {}
 

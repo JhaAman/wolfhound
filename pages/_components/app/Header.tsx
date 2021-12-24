@@ -1,3 +1,9 @@
+/* 
+  pages/_components/app/Header.tsx
+  ------------------------
+  A header component used by the core webapp. Currently only used to sign out
+ */
+
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";

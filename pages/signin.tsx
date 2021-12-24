@@ -1,4 +1,9 @@
-/* pages/sign-in.js */
+/* 
+  pages/signin.tsx
+  ------------------------
+  The page where people sign-in, and where they go when they sign-out
+ */
+
 import mixpanel from "mixpanel-browser";
 import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
@@ -20,11 +25,11 @@ const SignIn = (props: { beta_list: any }) => {
   const [state, setState] = useState("no_submit");
   /*
     The four states are:
-    no_submit: no submit
-    loading
-    error
-    sent
-    no_beta
+    no_submit    (default)
+    loading      (user submitted email, but supabase hasn't send a link)
+    error        (supabase couldn't send a link)
+    sent         (supabase sent a link)
+    no_beta      (user submitted email, but they're not in the beta list)
   */
 
   async function signIn() {

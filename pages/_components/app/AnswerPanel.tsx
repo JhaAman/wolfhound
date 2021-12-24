@@ -1,6 +1,13 @@
+/* 
+  pages/_components/app/AnswerPanel.tsx
+  ------------------------
+  The answer panel is used by the index page of the webapp
+ */
+
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
+  // The QA object controls the answer string and passes it here
   answer: string;
 }
 

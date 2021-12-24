@@ -1,3 +1,10 @@
+/* 
+  pages/api/howto.ts
+  ------------------------
+  The core serverless function that gets answers for questions.
+  Deployed to Vercel Serverless.
+ */
+
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import OpenAI from "openai-api";
