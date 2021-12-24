@@ -1,8 +1,16 @@
+/* 
+  pages/_components/app/AnswerPanel.tsx
+  ------------------------
+  The question panel is where the user asks and submits a question. 
+  It has a lot of functionality that should be put into seperate components later.
+ */
+
 import { createHash } from "crypto";
 import mixpanel from "mixpanel-browser";
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
+  // This method is from the QA object. QuestionPanel.tsx calls it in order to get an answer
   submitQuestion: (type: string, question: string) => void;
 }
 
@@ -28,13 +36,14 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
 
   // Handle submit button
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent reloading the page
+    // Style the question for the AI API
     const question = createQuestion(oneLiner, details);
-    submitQuestion(type, question);
+    submitQuestion(type, question); // Submit to QA Object
 
+    // Send to mixpanel, but first, hash the question to match with the answer
     const hash = createHash("sha256");
     hash.update(question);
-    console.log(hash.digest("hex"));
 
     mixpanel.track("Question Asked", {
       question_hash: hash.digest("hex"),
@@ -109,6 +118,7 @@ export default function QuestionPanel({ submitQuestion }: Props): ReactElement {
   );
 }
 
+// A function to style the question for the AI API
 function createQuestion(oneLiner: string, details: string): string {
   return `Question Subject:
 ${oneLiner}
