@@ -1,3 +1,9 @@
+/* 
+  lib/mixpanel.ts
+  ------------------------
+  A quick series of functions that relate to Mixpanel.
+ */
+
 import mixpanel from "mixpanel-browser";
 // or with require() syntax:
 // const mixpanel = require('mixpanel-browser');
