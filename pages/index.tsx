@@ -6,18 +6,28 @@
 
 import { ReactElement, useEffect, useState } from "react";
 import Link from "next/link";
-import { Session } from "@supabase/supabase-js";
-import { Auth } from "@supabase/ui";
 import supabase from "@/lib/supabase";
-import DarkMode from "@/components/landing/DarkMode";
 import LandingLayout from "@/layout/LandingLayout";
 import Meta from "@/components/landing/Meta";
-import useSWR from "swr";
+import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 
 interface Props {}
 
 const Index = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchProfile();
+  });
+
+  async function fetchProfile() {
+    const user = supabase.auth.user();
+    if (user) {
+      router.push("/app");
+    }
+  }
+
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
@@ -49,22 +59,22 @@ const Index = () => {
 };
 
 // If the user is already logged in, we should send them to the app straightaway
-export async function getServerSideProps(ctx: { req: any }) {
-  const { req } = ctx;
+// export async function getServerSideProps(ctx: { req: any }) {
+//   const { req } = ctx;
 
-  /* check to see if a user is set */
-  const { user } = await supabase.auth.api.getUserByCookie(req);
+//   /* check to see if a user is set */
+//   const { user } = await supabase.auth.api.getUserByCookie(req);
 
-  // If we have a user logged in, then nav to app
-  if (user) {
-    return { props: {}, redirect: { destination: "/app" } };
-  }
+//   // If we have a user logged in, then nav to app
+//   if (user) {
+//     return { props: {}, redirect: { destination: "/app" } };
+//   }
 
-  // If there is no user logged in, then let them see the home page
-  return {
-    props: {},
-  };
-}
+//   // If there is no user logged in, then let them see the home page
+//   return {
+//     props: {},
+//   };
+// }
 
 // Attach the landing layout (and other nested layouts) to the page
 Index.getLayout = (page: ReactElement) => {
