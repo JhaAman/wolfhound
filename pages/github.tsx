@@ -4,33 +4,39 @@
   Github based sign-in
  */
 
-import React, { ReactElement } from "react";
+import { Session } from "@supabase/supabase-js";
+import React, { ReactElement, useEffect } from "react";
+import Auth from "../components/landing/Auth";
 import Meta from "../components/landing/Meta";
 import LandingLayout from "../layout/LandingLayout";
 import supabase from "../lib/supabase";
 
 interface Props {
   beta_list: any;
+  session: Session;
 }
 
-const Github = ({ beta_list }: Props) => {
+const Github = ({ beta_list, session }: Props) => {
   const [email, setEmail] = React.useState("");
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [state, setState] = React.useState("prompt_email");
+
+  useEffect(() => {
+    setLoggedIn(!!session);
+  }, [session]);
   /*
     The four states are:
   */
-
-  async function signInWithGithub() {
-    const { user, session, error } = await supabase.auth.signIn({
-      provider: "github",
-    });
-  }
 
   async function signout() {
     const { error } = await supabase.auth.signOut();
   }
 
-  return <div></div>;
+  return (
+    <div className="flex items-center justify-center h-screen text-white ">
+      {loggedIn ? <button onClick={signout}>Sign out</button> : <Auth />}
+    </div>
+  );
 };
 
 const isEmail = (email: string, obj: { email: string }) => {
@@ -44,7 +50,7 @@ Github.getLayout = (page: ReactElement) => {
     <LandingLayout
       meta={
         <Meta
-          title="Sign into Rosie"
+          title="Sign in with Github"
           description="Ready to code 10x faster? Get in there!"
         />
       }
