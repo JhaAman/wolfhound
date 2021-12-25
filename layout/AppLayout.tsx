@@ -6,7 +6,7 @@
 
 import Head from "next/head";
 import React, { ReactElement, ReactNode } from "react";
-import Header from "../pages/_components/app/Header";
+import Header from "../components/app/Header";
 
 // TODO: add mixpanel, dock component, etc.
 

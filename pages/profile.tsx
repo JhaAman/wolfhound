@@ -9,7 +9,7 @@ import supabase from "../lib/supabase";
 import { useRouter } from "next/router";
 import { User } from "@supabase/supabase-js";
 import LandingLayout from "../layout/LandingLayout";
-import Meta from "./_components/landing/Meta";
+import Meta from "../components/landing/Meta";
 
 const Profile = () => {
   const [user, setUser] = useState<User>();

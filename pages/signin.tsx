@@ -10,7 +10,7 @@ import { ReactElement, useEffect, useState } from "react";
 import LandingLayout from "../layout/LandingLayout";
 
 import supabase from "../lib/supabase";
-import Meta from "./_components/landing/Meta";
+import Meta from "../components/landing/Meta";
 
 const redirect_url = process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL;
 

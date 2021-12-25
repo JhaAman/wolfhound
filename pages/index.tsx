@@ -9,8 +9,8 @@ import { ReactElement, useEffect, useState } from "react";
 
 import LandingLayout from "../layout/LandingLayout";
 import supabase from "../lib/supabase";
-import DarkMode from "./_components/landing/DarkMode";
-import Meta from "./_components/landing/Meta";
+import DarkMode from "../components/landing/DarkMode";
+import Meta from "../components/landing/Meta";
 
 const Home = () => {
   return (

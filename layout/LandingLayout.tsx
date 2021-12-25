@@ -9,8 +9,8 @@
 
 import React, { ReactElement, ReactNode } from "react";
 
-import Footer from "../pages/_components/landing/Footer";
-import Header from "../pages/_components/landing/Header";
+import Footer from "../components/landing/Footer";
+import Header from "../components/landing/Header";
 
 // TODO: add fathom client, etc.
 

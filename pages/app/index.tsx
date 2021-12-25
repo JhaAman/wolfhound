@@ -11,8 +11,8 @@ import mixpanel from "mixpanel-browser";
 import React, { ReactElement, useEffect } from "react";
 import AppLayout from "../../layout/AppLayout";
 import supabase from "../../lib/supabase";
-import AnswerPanel from "../_components/app/AnswerPanel";
-import QuestionPanel from "../_components/app/QuestionPanel";
+import AnswerPanel from "../../components/app/AnswerPanel";
+import QuestionPanel from "../../components/app/QuestionPanel";
 
 const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 

@@ -7,7 +7,7 @@
 import React, { ReactElement } from "react";
 import { Widget } from "@typeform/embed-react";
 import LandingLayout from "../layout/LandingLayout";
-import Meta from "./_components/landing/Meta";
+import Meta from "../components/landing/Meta";
 
 interface Props {}
 
