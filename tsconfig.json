@@ -19,7 +19,8 @@
       "@/layout/*": ["layout/*"],
       "@/lib/*": ["lib/*"],
       "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/api/*": ["pages/api/*"]
     },
     "incremental": true
   },
