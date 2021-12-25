@@ -31,6 +31,7 @@ const Index = () => {
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
+
       <div className="flex flex-col items-center justify-center h-screen text-center">
         <h1 className="text-4xl font-bold text-gray-200">Welcome to Rosie</h1>
         <p className="mt-3 text-gray-300">
