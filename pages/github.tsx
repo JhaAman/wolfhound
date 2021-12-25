@@ -4,7 +4,7 @@
   Github based sign-in
  */
 
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
 import React, { ReactElement, useEffect } from "react";
 import Auth from "../components/landing/Auth";
 import Meta from "../components/landing/Meta";
@@ -13,17 +13,17 @@ import supabase from "../lib/supabase";
 
 interface Props {
   beta_list: any;
-  session: Session;
+  user: User;
 }
 
-const Github = ({ beta_list, session }: Props) => {
+const Github = ({ beta_list, user }: Props) => {
   const [email, setEmail] = React.useState("");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [state, setState] = React.useState("prompt_email");
 
   useEffect(() => {
-    setLoggedIn(!!session);
-  }, [session]);
+    setLoggedIn(!!user);
+  }, [user]);
   /*
     The four states are:
   */
@@ -38,6 +38,28 @@ const Github = ({ beta_list, session }: Props) => {
     </div>
   );
 };
+
+// If the user is already logged in, we should know
+export async function getServerSideProps(ctx: { req: any }) {
+  const { req } = ctx;
+
+  /* check to see if a user is set */
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+
+  // If we have a user logged in, then nav to app
+  if (user) {
+    return {
+      props: {
+        user: user,
+      },
+    };
+  }
+
+  // If there is no user logged in, then let them see the home page
+  return {
+    props: {},
+  };
+}
 
 const isEmail = (email: string, obj: { email: string }) => {
   return email === obj.email;
