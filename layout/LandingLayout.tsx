@@ -35,6 +35,7 @@ export default function LandingLayout({
     Children is the page itself (react keyword)
     headerActive and footerActive are bools decided by the page
   */
+
   return (
     // TODO: re-add in command bar later
 

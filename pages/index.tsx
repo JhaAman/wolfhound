@@ -11,8 +11,14 @@ import LandingLayout from "../layout/LandingLayout";
 import supabase from "../lib/supabase";
 import DarkMode from "../components/landing/DarkMode";
 import Meta from "../components/landing/Meta";
+import { Session } from "@supabase/supabase-js";
 
-const Home = () => {
+interface Props {
+  session: Session;
+  supabase: any;
+}
+
+const Home = ({ session, supabase }: Props) => {
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
