@@ -3,7 +3,8 @@ import React, { forwardRef, useRef, ButtonHTMLAttributes } from "react";
 import mergeRefs from "react-merge-refs";
 import styles from "./Button.module.css";
 
-import LoadingDots from "components/ui/LoadingDots";
+import LoadingDots from "../LoadingDots";
+// import LoadingDots from "components/ui/LoadingDots";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "slim" | "flat";
@@ -13,7 +14,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   Component?: React.ComponentType;
 }
 
-const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
+const Button = forwardRef<HTMLButtonElement, Props>(function ButtonRef(
+  props,
+  buttonRef
+) {
   const {
     className,
     variant = "flat",

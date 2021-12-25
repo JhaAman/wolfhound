@@ -1,149 +1,186 @@
-/* 
-  pages/signin.tsx
-  ------------------------
-  The page where people sign-in, and where they go when they sign-out
- */
-
-import mixpanel from "mixpanel-browser";
+import { User } from "@supabase/supabase-js";
 import Link from "next/link";
-import { ReactElement, useEffect, useState } from "react";
-import LandingLayout from "../layout/LandingLayout";
-
-import supabase from "../lib/supabase";
+import { useRouter } from "next/router";
+import { useState, FormEvent, Provider, ReactElement } from "react";
+import GitHub from "../components/icons/GitHub";
+import Logo from "../components/icons/Logo";
 import Meta from "../components/landing/Meta";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import LoadingDots from "../components/ui/LoadingDots";
+import LandingLayout from "../layout/LandingLayout";
+import supabase from "../lib/supabase";
 
-const redirect_url = process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL;
+interface Props {
+  user?: User;
+  beta_list: any;
+}
 
-const SignIn = (props: { beta_list: any }) => {
-  const { beta_list } = props;
+const SignIn = ({ user, beta_list }: Props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPasswordInput, setShowPasswordInput] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type?: string; content?: string }>({
+    type: "",
+    content: "",
+  });
+  const router = useRouter();
+  const { signIn } = useUser();
 
-  const isEmail = (email: string, obj: { email: string }) => {
-    return email === obj.email;
+  const handleSignin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setMessage({});
+
+    const { error } = await signIn({ email, password });
+    if (error) {
+      setMessage({ type: "error", content: error.message });
+    }
+    if (!password) {
+      setMessage({
+        type: "note",
+        content: "Check your email for the magic link.",
+      });
+    }
+    setLoading(false);
   };
 
-  const [email, setEmail] = useState("");
-  const [state, setState] = useState("no_submit");
-  /*
-    The four states are:
-    no_submit    (default)
-    loading      (user submitted email, but supabase hasn't send a link)
-    error        (supabase couldn't send a link)
-    sent         (supabase sent a link)
-    no_beta      (user submitted email, but they're not in the beta list)
-  */
+  const handleOAuthSignIn = async (provider: Provider) => {
+    setLoading(true);
+    const { error } = await signIn({ provider });
+    if (error) {
+      setMessage({ type: "error", content: error.message });
+    }
+    setLoading(false);
+  };
 
-  async function signIn() {
-    // Check if email is on the beta list using isEmail
-    const isOnBetaList = beta_list.some((obj: { email: string }) =>
-      isEmail(email, obj)
+  if (!user)
+    return (
+      <div className="flex justify-center height-screen-helper">
+        <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
+          <div className="flex justify-center pb-12 ">
+            <Logo width="64px" height="64px" />
+          </div>
+          <div className="flex flex-col space-y-4">
+            {message.content && (
+              <div
+                className={`${
+                  message.type === "error" ? "text-pink-500" : "text-green-500"
+                } border ${
+                  message.type === "error"
+                    ? "border-pink-500"
+                    : "border-green-500"
+                } p-3`}
+              >
+                {message.content}
+              </div>
+            )}
+
+            {!showPasswordInput && (
+              <form onSubmit={handleSignin} className="flex flex-col space-y-4">
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={setEmail}
+                  required
+                />
+                <Button
+                  variant="slim"
+                  type="submit"
+                  loading={loading}
+                  disabled={!email.length}
+                >
+                  Send magic link
+                </Button>
+              </form>
+            )}
+
+            {showPasswordInput && (
+              <form onSubmit={handleSignin} className="flex flex-col space-y-4">
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={setEmail}
+                  required
+                />
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={setPassword}
+                  required
+                />
+                <Button
+                  className="mt-1"
+                  variant="slim"
+                  type="submit"
+                  loading={loading}
+                  disabled={!password.length || !email.length}
+                >
+                  Sign in
+                </Button>
+              </form>
+            )}
+
+            <span className="pt-1 text-sm text-center">
+              <a
+                href="#"
+                className="text-gray-200 cursor-pointer text-accent-9 hover:underline"
+                onClick={() => {
+                  if (showPasswordInput) setPassword("");
+                  setShowPasswordInput(!showPasswordInput);
+                  setMessage({});
+                }}
+              >
+                {`Or sign in with ${
+                  showPasswordInput ? "magic link" : "password"
+                }.`}
+              </a>
+            </span>
+
+            <span className="pt-1 text-sm text-center">
+              <span className="text-gray-200">Don't have an account?</span>
+              {` `}
+              <Link href="/signup">
+                <a className="font-bold cursor-pointer text-accent-9 hover:underline">
+                  Sign up.
+                </a>
+              </Link>
+            </span>
+          </div>
+
+          <div className="flex items-center my-6">
+            <div
+              className="flex-grow mr-3 border-t border-gray-600"
+              aria-hidden="true"
+            ></div>
+            <div className="text-gray-400">Or</div>
+            <div
+              className="flex-grow ml-3 border-t border-gray-600"
+              aria-hidden="true"
+            ></div>
+          </div>
+
+          <Button
+            variant="slim"
+            type="submit"
+            disabled={loading}
+            onClick={() => handleOAuthSignIn("github")}
+          >
+            <GitHub />
+            <span className="ml-2">Continue with GitHub</span>
+          </Button>
+        </div>
+      </div>
     );
 
-    if (isOnBetaList) {
-      setState("loading");
-
-      // If email is on the beta list, send a magic link
-      const { error } = await supabase.auth.signIn({
-        email,
-      });
-
-      if (error) {
-        console.log("Supabase magic link sending error", error);
-        setState("error");
-
-        mixpanel.track("Magic Link Error", {
-          email: email,
-          error: error,
-        });
-      } else {
-        console.log("Sent a magic link to " + email);
-        setState("sent");
-        // setSubmitted(true);
-
-        mixpanel.track("Sent Magic Link", {
-          email: email,
-        });
-      }
-    } else {
-      setState("no_beta");
-    }
-  }
-
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center h-screen text-center">
-        <h2 className="text-3xl font-bold text-gray-200">Sign into Rosie</h2>
-        {state === "no_submit" && (
-          <form
-            className="flex flex-col m-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              signIn();
-            }}
-          >
-            <input
-              className=""
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              required={true}
-            />
-            <button
-              className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
-              // onClick={}
-              type="submit"
-            >
-              Sign In
-            </button>
-          </form>
-        )}
-        {state === "sent" && (
-          <p className="m-3 text-gray-200">
-            Successfully sent you a magic link! Please check your email to sign
-            in.
-          </p>
-        )}
-        {state === "no_beta" && (
-          <>
-            <p className="m-3 text-gray-200">
-              {`Hmm, you're not on the beta list yet. Please `}
-              <Link href="/welcome">
-                <a className="text-red-400">sign up</a>
-              </Link>
-              {`, and we'll get you on the list ASAP. Thanks!`}
-              <br /> Or, try signing in with a different email.
-            </p>
-            <form
-              className="flex flex-col m-5"
-              onSubmit={(e) => {
-                e.preventDefault();
-                signIn();
-              }}
-            >
-              <input
-                className=""
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                required={true}
-              />
-              <button
-                className="px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
-                // onClick={}
-                type="submit"
-              >
-                Sign In
-              </button>
-            </form>
-          </>
-        )}
-        {state === "loading" && (
-          <p className="m-3 text-gray-200">Sending you a magic link...</p>
-        )}
-        {state === "error" && (
-          <p className="m-3 text-gray-200">
-            We had some trouble sending you an email. Please email us at
-            aman@rosieos.com
-          </p>
-        )}
-      </div>
+    <div className="m-6">
+      <LoadingDots />
     </div>
   );
 };
@@ -155,7 +192,7 @@ export async function getServerSideProps(ctx: { req: any }) {
   const { user } = await supabase.auth.api.getUserByCookie(req);
   // If we have a user logged in, then nav to app
   if (user) {
-    return { props: {}, redirect: { destination: "/app" } };
+    return { props: { user: user }, redirect: { destination: "/app" } };
   }
 
   // If we don't have a user logged in, then continue sign in process
@@ -172,7 +209,7 @@ SignIn.getLayout = (page: ReactElement) => {
     <LandingLayout
       meta={
         <Meta
-          title="Sign into Rosie"
+          title="Sign in - NextJS"
           description="Ready to code 10x faster? Get in there!"
         />
       }
