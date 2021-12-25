@@ -4,21 +4,20 @@
   The main landing page - rosieos.com
  */
 
-import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
-
-import LandingLayout from "../layout/LandingLayout";
-import supabase from "../lib/supabase";
-import DarkMode from "../components/landing/DarkMode";
-import Meta from "../components/landing/Meta";
+import Link from "next/link";
 import { Session } from "@supabase/supabase-js";
+import { Auth } from "@supabase/ui";
+import supabase from "@/lib/supabase";
+import DarkMode from "@/components/landing/DarkMode";
+import LandingLayout from "@/layout/LandingLayout";
+import Meta from "@/components/landing/Meta";
+import useSWR from "swr";
+import { useRouter } from "next/router";
 
-interface Props {
-  session: Session;
-  supabase: any;
-}
+interface Props {}
 
-const Home = ({ session, supabase }: Props) => {
+const Index = () => {
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
@@ -68,7 +67,7 @@ export async function getServerSideProps(ctx: { req: any }) {
 }
 
 // Attach the landing layout (and other nested layouts) to the page
-Home.getLayout = (page: ReactElement) => {
+Index.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
@@ -86,4 +85,4 @@ Home.getLayout = (page: ReactElement) => {
   );
 };
 
-export default Home;
+export default Index;
