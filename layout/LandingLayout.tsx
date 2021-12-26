@@ -9,8 +9,8 @@
 
 import React, { ReactElement, ReactNode } from "react";
 
-import Footer from "../pages/_components/landing/Footer";
-import Header from "../pages/_components/landing/Header";
+import Footer from "../components/landing/Footer";
+import Header from "../components/landing/Header";
 
 // TODO: add fathom client, etc.
 
@@ -35,6 +35,7 @@ export default function LandingLayout({
     Children is the page itself (react keyword)
     headerActive and footerActive are bools decided by the page
   */
+
   return (
     // TODO: re-add in command bar later
 

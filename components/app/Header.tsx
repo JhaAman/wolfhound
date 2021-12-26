@@ -7,13 +7,14 @@
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import supabase from "../../../lib/supabase";
+import supabase from "../../lib/supabase";
 
 export default function Header(): ReactElement {
   const router = useRouter();
 
   async function signOut() {
     await supabase.auth.signOut();
+    console.log("Redirecting from app header to signin");
     router.push("/signin");
   }
 

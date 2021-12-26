@@ -4,12 +4,12 @@
   A temporary page that shows how to do server-side auth protection
  */
 
-import supabase from "../lib/supabase";
+import supabase from "../../lib/supabase";
 import { User } from "@supabase/supabase-js";
 
 import React, { ReactElement } from "react";
-import LandingLayout from "../layout/LandingLayout";
-import Meta from "./_components/landing/Meta";
+import LandingLayout from "../../layout/LandingLayout";
+import Meta from "../../components/landing/Meta";
 
 const Protected = (props: { user: User }) => {
   const { user } = props;

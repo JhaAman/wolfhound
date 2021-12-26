@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.28.5",
+    "@supabase/ui": "^0.36.2",
     "@tailwindcss/typography": "^0.5.0",
     "@typeform/embed-react": "^1.2.4",
     "kbar": "^0.1.0-beta.24",
@@ -26,9 +27,11 @@
     "@types/node": "17.0.0",
     "@types/react": "17.0.37",
     "autoprefixer": "^10.4.0",
+    "classnames": "^2.3.1",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
     "postcss": "^8.4.5",
+    "react-merge-refs": "^1.1.0",
     "tailwindcss": "^3.0.7",
     "typescript": "4.5.4"
   }

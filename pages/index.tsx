@@ -1,21 +1,39 @@
 /* 
   pages/index.tsx
   ------------------------
+  SSG, will use client-side auth to redirect
+  ------------------------
   The main landing page - rosieos.com
  */
 
-import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
+import Link from "next/link";
+import supabase from "@/lib/supabase";
+import LandingLayout from "@/layout/LandingLayout";
+import Meta from "@/components/landing/Meta";
+import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
 
-import LandingLayout from "../layout/LandingLayout";
-import supabase from "../lib/supabase";
-import DarkMode from "./_components/landing/DarkMode";
-import Meta from "./_components/landing/Meta";
+interface Props {}
 
-const Home = () => {
+const Index = ({}: Props) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchProfile();
+  });
+
+  async function fetchProfile() {
+    const user = supabase.auth.user();
+    if (user) {
+      router.push("/app");
+    }
+  }
+
   return (
     <div className="bg-gray-900 ">
       {/* <DarkMode /> */}
+
       <div className="flex flex-col items-center justify-center h-screen text-center">
         <h1 className="text-4xl font-bold text-gray-200">Welcome to Rosie</h1>
         <p className="mt-3 text-gray-300">
@@ -43,26 +61,8 @@ const Home = () => {
   );
 };
 
-// If the user is already logged in, we should send them to the app straightaway
-export async function getServerSideProps(ctx: { req: any }) {
-  const { req } = ctx;
-
-  /* check to see if a user is set */
-  const { user } = await supabase.auth.api.getUserByCookie(req);
-
-  // If we have a user logged in, then nav to app
-  if (user) {
-    return { props: {}, redirect: { destination: "/app" } };
-  }
-
-  // If there is no user logged in, then let them see the home page
-  return {
-    props: {},
-  };
-}
-
 // Attach the landing layout (and other nested layouts) to the page
-Home.getLayout = (page: ReactElement) => {
+Index.getLayout = (page: ReactElement) => {
   return (
     // Attach the Landing layout with a meta component, decide on header/footer
     <LandingLayout
@@ -80,4 +80,4 @@ Home.getLayout = (page: ReactElement) => {
   );
 };
 
-export default Home;
+export default Index;

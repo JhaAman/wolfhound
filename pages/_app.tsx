@@ -50,10 +50,13 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
             user: session?.user,
           });
 
+          console.log("_app directing to app");
           router.push("/app");
         }
         if (event === "SIGNED_OUT") {
           setAuthenticatedState("not-authenticated");
+          console.log("_app directing to signin");
+          router.push("/signin");
         }
       }
     );

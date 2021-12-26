@@ -7,7 +7,7 @@
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { AppConfig } from "../../../lib/config";
+import { AppConfig } from "../../lib/config";
 
 type MetaProps = {
   title: string;
