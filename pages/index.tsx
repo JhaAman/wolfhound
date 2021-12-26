@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 
 interface Props {}
 
-const Index = () => {
+const Index = ({}: Props) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +26,6 @@ const Index = () => {
   async function fetchProfile() {
     const user = supabase.auth.user();
     if (user) {
-      console.log("Redirecting from / to app");
       router.push("/app");
     }
   }

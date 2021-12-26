@@ -14,6 +14,7 @@ export default function Header(): ReactElement {
 
   async function signOut() {
     await supabase.auth.signOut();
+    console.log("Redirecting from app header to signin");
     router.push("/signin");
   }
 

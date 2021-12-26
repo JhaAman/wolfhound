@@ -25,7 +25,6 @@ const SignIn = ({}: Props) => {
   async function fetchProfile() {
     const user = supabase.auth.user();
     if (user) {
-      console.log("Redirecting from signin to app");
       router.push("/app");
     }
   }
@@ -141,8 +140,8 @@ SignIn.getLayout = (page: ReactElement) => {
     <LandingLayout
       meta={
         <Meta
-          title="Sign in - NextJS"
-          description="Ready to code 10x faster? Get in there!"
+          title="Sign into Rosie"
+          description="Ready to become a 10x React developer?"
         />
       }
       headerActive={false}
