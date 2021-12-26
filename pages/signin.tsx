@@ -1,13 +1,9 @@
-import { User } from "@supabase/supabase-js";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, FormEvent, ReactElement, useEffect } from "react";
 import GitHub from "../components/icons/GitHub";
-import Logo from "../components/icons/Logo";
 import Meta from "../components/landing/Meta";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
-import LoadingDots from "../components/ui/LoadingDots";
 import LandingLayout from "../layout/LandingLayout";
 import supabase from "../lib/supabase";
 
