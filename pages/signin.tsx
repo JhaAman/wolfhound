@@ -11,6 +11,8 @@ import LoadingDots from "../components/ui/LoadingDots";
 import LandingLayout from "../layout/LandingLayout";
 import supabase from "../lib/supabase";
 
+const app_base_url = process.env.NEXT_PUBLIC_BASE_URL;
+
 interface Props {}
 
 type Provider = "github";
@@ -42,7 +44,10 @@ const SignIn = ({}: Props) => {
     setLoading(true);
     setMessage({});
 
-    const { error } = await supabase.auth.signIn({ email });
+    const { error } = await supabase.auth.signIn(
+      { email },
+      { redirectTo: "/app" }
+    );
     if (error) {
       setMessage({ type: "error", content: error.message });
     }
@@ -57,7 +62,10 @@ const SignIn = ({}: Props) => {
 
   const handleOAuthSignIn = async (provider: Provider) => {
     setLoading(true);
-    const { error } = await supabase.auth.signIn({ provider });
+    const { error } = await supabase.auth.signIn(
+      { provider },
+      { redirectTo: "/app" }
+    );
     if (error) {
       setMessage({ type: "error", content: error.message });
     }
@@ -68,9 +76,13 @@ const SignIn = ({}: Props) => {
   return (
     <div className="flex justify-center h-screen">
       <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
-        </div>
+        {/* <div className="flex items-center justify-center pb-12">
+          <Logo width="32px" height="32px" />
+        </div> */}
+
+        <h1 className="items-center justify-center m-8 text-3xl font-bold text-center text-red-400">
+          Sign into Rosie
+        </h1>
 
         {/* Display messages and errors */}
         <div className="flex flex-col space-y-4">

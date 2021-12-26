@@ -14,7 +14,7 @@ import supabase from "../../lib/supabase";
 import AnswerPanel from "../../components/app/AnswerPanel";
 import QuestionPanel from "../../components/app/QuestionPanel";
 
-const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+const api_base_url = process.env.NEXT_PUBLIC_BASE_URL + "api";
 
 const MainApp = (props: { user: User }) => {
   const { user } = props;
