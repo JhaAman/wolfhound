@@ -25,6 +25,7 @@ const SignIn = ({}: Props) => {
   async function fetchProfile() {
     const user = supabase.auth.user();
     if (user) {
+      console.log("Redirecting from signin to app");
       router.push("/app");
     }
   }
@@ -132,21 +133,6 @@ const SignIn = ({}: Props) => {
     </div>
   );
 };
-
-// export async function getServerSideProps(ctx: { req: any }) {
-//   const { req } = ctx;
-
-//   // Check if user is logged in
-//   const { user } = await supabase.auth.api.getUserByCookie(req);
-//   // If we have a user logged in, then nav to app
-//   if (user) {
-//     return { props: { user: user }, redirect: { destination: "/app" } };
-//   }
-
-//   // If we don't have a user logged in, then continue sign in process
-//   const { data, error } = await supabase.from("Beta List").select();
-//   return { props: { beta_list: data } };
-// }
 
 // Attach the landing layout (and other nested layouts) to the page
 SignIn.getLayout = (page: ReactElement) => {

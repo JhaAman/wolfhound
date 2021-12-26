@@ -1,6 +1,8 @@
 /* 
   pages/index.tsx
   ------------------------
+  SSG, will use client-side auth to redirect
+  ------------------------
   The main landing page - rosieos.com
  */
 
@@ -24,6 +26,7 @@ const Index = () => {
   async function fetchProfile() {
     const user = supabase.auth.user();
     if (user) {
+      console.log("Redirecting from / to app");
       router.push("/app");
     }
   }
@@ -58,24 +61,6 @@ const Index = () => {
     </div>
   );
 };
-
-// If the user is already logged in, we should send them to the app straightaway
-// export async function getServerSideProps(ctx: { req: any }) {
-//   const { req } = ctx;
-
-//   /* check to see if a user is set */
-//   const { user } = await supabase.auth.api.getUserByCookie(req);
-
-//   // If we have a user logged in, then nav to app
-//   if (user) {
-//     return { props: {}, redirect: { destination: "/app" } };
-//   }
-
-//   // If there is no user logged in, then let them see the home page
-//   return {
-//     props: {},
-//   };
-// }
 
 // Attach the landing layout (and other nested layouts) to the page
 Index.getLayout = (page: ReactElement) => {

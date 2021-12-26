@@ -18,7 +18,6 @@ const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const MainApp = (props: { user: User }) => {
   const { user } = props;
-  // console.log(user);
 
   // UseState to store the question submission and answer repsonse
   const [answer, setAnswer] = React.useState("Waiting for a question...");
@@ -39,7 +38,6 @@ const MainApp = (props: { user: User }) => {
       .then((data) => {
         const hash = createHash("sha256");
         hash.update(question);
-        console.log(hash.digest("hex"));
 
         mixpanel.track("Question Answered", {
           question_hash: hash.digest("hex"),
@@ -93,6 +91,7 @@ export async function getServerSideProps(ctx: { req: any }) {
 
   /* if no user is set, redirect to the sign-in page */
   if (!user) {
+    console.log("Redirecting from app to signin");
     return { props: {}, redirect: { destination: "/signin" } };
   }
 
