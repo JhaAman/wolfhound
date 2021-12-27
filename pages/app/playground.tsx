@@ -1,10 +1,13 @@
 import { ReactElement } from "react";
 import AppLayout from "@/layout/AppLayout";
 import supabase from "@/lib/supabase";
+import Question from "@/components/Question";
 
 interface Props {}
 
-const Playground = ({}: Props) => {};
+const Playground = ({}: Props) => {
+  return <Question />;
+};
 
 export async function getServerSideProps(ctx: { req: any }) {
   const { req } = ctx;
